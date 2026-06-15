@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayesha's Boutique | Luxury Pakistani Wear</title>
+    <!-- Tailwind CSS for Ultra-Fast Loading -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Premium Google Fonts (Playfair Display for Serif & Montserrat for Sans-Serif) -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Montserrat:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Typography classes as requested */
+        .font-serif-luxury { font-family: 'Playfair Display', serif; }
+        .font-sans-premium { font-family: 'Montserrat', sans-serif; }
+        
+        /* Custom Luxury Scrollbar using Purple and Gold */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #210C22;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E3C28E;
+            border-radius: 4px;
+        }
+
+        /* Hero Text Shadow and Gradient Overlays for Readability */
+        .premium-text-shadow {
+            text-shadow: 2px 4px 12px rgba(33, 12, 34, 0.7);
+        }
+        .luxury-card-shadow {
+            box-shadow: 0 20px 40px -15px rgba(80, 33, 87, 0.15);
+        }
+        
+        /* Smooth Custom Transitions */
+        .transition-lux {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Original WhatsApp Brand Colors */
+        .bg-whatsapp {
+            background-color: #25D366;
+        }
+        .bg-whatsapp:hover {
+            background-color: #20ba56;
+        }
+        .text-whatsapp {
+            color: #25D366;
+        }
+    </style>
+</head>
+<body class="font-sans-premium bg-[#F4F0F5] text-[#2B2B2B] antialiased">
+
+    <!-- Floating WhatsApp Button (Strictly following design guidelines) -->
+    <a href="https://wa.me/923208712508?text=Hi%20Ayesha's%20Boutique,%20I'm%20visiting%20your%20website%20and%20would%20like%20to%20know%20more%20about%20your%20luxury%20collections." 
+       target="_blank" 
+       rel="noopener noreferrer"
+       class="fixed bottom-6 right-6 z-[9999] flex items-center justify-center bg-whatsapp text-white w-14 h-14 md:w-16 md:h-16 rounded-full shadow-[0_4px_15px_rgba(37,211,102,0.4)] hover:shadow-[0_8px_25px_rgba(37,211,102,0.6)] transform hover:-translate-y-1.5 transition-all duration-300 group"
+       title="Chat with us on WhatsApp">
+        <!-- High-Resolution Clean WhatsApp SVG Icon -->
+        <svg class="w-7 h-7 md:w-8 md:h-8 fill-current transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.07 1.1 11.478 1.1c-5.412 0-9.821 4.372-9.825 9.802-.002 1.81.475 3.578 1.38 5.161l-.973 3.548 3.639-.945z"/>
+        </svg>
+    </a>
+
+    <!-- Top Premium Brand Header (Deep Plum Background #210C22) -->
+    <header class="bg-[#210C22] text-[#FFFFFF] border-b border-[#E3C28E]/10 px-6 md:px-12 py-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            
+            <!-- Left: Wholesale Link (Montserrat Light) -->
+            <div class="text-[11px] uppercase tracking-[0.2em] text-[#E3C28E] font-medium hover:text-[#FFFFFF] transition duration-300">
+                <a href="#stitching-info">Wholesale Enquiries</a>
+            </div>
+
+            <!-- Center: Crown Logo and Luxurious Brand Name -->
+            <div class="flex flex-col items-center">
+                <!-- Golden Crown SVG Icon -->
+                <svg class="w-6 h-6 text-[#E3C28E] mb-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M2 19h20v2H2v-2zm2-2h16l-3-9-4 4-3-6-3 6-3-4-3 9z"/>
+                </svg>
+                <a href="#" class="font-serif-luxury text-2xl md:text-3xl lg:text-4xl font-bold tracking-[0.12em] text-[#FFFFFF] hover:opacity-90">
+                    Ayesha's <span class="text-[#E3C28E] italic font-normal">Boutique</span>
+                </a>
+            </div>
+
+            <!-- Right: Search, Wishlist, and Cart Actions -->
+            <div class="flex items-center space-x-6">
+                <!-- Search Bar -->
+                <div class="relative hidden sm:block">
+                    <input type="text" placeholder="Search..." class="bg-[#261126] text-[11px] text-white tracking-wider border border-[#E3C28E]/30 rounded-full px-4 py-1.5 focus:outline-none focus:border-[#E3C28E] w-40 transition duration-300">
+                    <span class="absolute right-3 top-2 text-[#E3C28E]">
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    </span>
+                </div>
+                <!-- Heart Icon -->
+                <a href="#" class="text-[#E3C28E] hover:text-[#FFFFFF] transition duration-300">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </a>
+                <!-- Cart Icon -->
+                <a href="#" class="text-[#E3C28E] hover:text-[#FFFFFF] transition duration-300">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Main Navigation Bar (Clean Menu items) -->
+    <nav class="sticky top-0 z-50 bg-[#210C22] border-b border-[#E3C28E]/20 py-3 px-6 text-center transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-center items-center gap-x-6 gap-y-2 md:gap-x-10 text-[11px] font-bold tracking-[0.2em] uppercase">
+            <a href="#home" class="text-[#E3C28E] border-b-2 border-[#E3C28E] pb-1">Home</a>
+            <a href="#new-arrivals" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">New Arrivals</a>
+            <a href="#brands" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">Brands</a>
+            <a href="#signature-collection" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">Unstitched</a>
+            <a href="#party-wear" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">Party Wear</a>
+            <a href="#fancy" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">Fancy</a>
+            <a href="#kids" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">Kids</a>
+            <a href="#wholesale" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">Wholesale</a>
+            <a href="#footer" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">About Us</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Premium Backdrop & Two Buttons (Decreased text size for Elegance) -->
+    <section id="home" class="relative h-[85vh] w-full flex items-center justify-center overflow-hidden">
+        <!-- Real Model Backdrop Image -->
+        <img src="https://images.unsplash.com/photo-1595777457583-95e059d5e7b8?auto=format&fit=crop&q=85&w=2000" 
+             class="absolute inset-0 w-full h-full object-cover object-center scale-100 transition duration-1000" 
+             alt="Ayesha's Boutique Premium Backdrop"
+             onerror="this.style.display='none'; this.parentNode.style.backgroundColor='#210C22'">
+        
+        <!-- Luxury Plum and Black Overlay for Rich Look and High Contrast -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#210C22]/90 via-[#210C22]/50 to-[#210C22]/90"></div>
+        
+        <!-- Gold and Elegant White Text Content -->
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+            <!-- Serif Fonts for Premium Elegant Heading (Reduced size) -->
+            <h1 class="font-serif-luxury text-2xl md:text-4xl lg:text-5xl text-[#FFFFFF] font-bold tracking-[0.05em] leading-tight mb-4 premium-text-shadow">
+                Elegance Refined – <br><span class="text-[#E3C28E] font-normal italic">From Pakistan to the World</span>
+            </h1>
+            <p class="text-sm md:text-base text-[#F4F0F5]/90 font-light tracking-[0.1em] max-w-2xl mx-auto mb-10 leading-relaxed">
+                Discover unstitched luxury suits styled to perfection. Customize your fit with our premium in-house stitching services.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#signature-collection" class="w-full sm:w-auto bg-[#E3C28E] hover:bg-white text-[#210C22] hover:text-black px-12 py-3 text-xs font-bold uppercase tracking-[0.25em] transition-lux rounded-none shadow-lg">
+                    Shop Now
+                </a>
+                <a href="https://wa.me/923208712508?text=Hi%20Ayesha's%20Boutique,%20I%20want%20to%20view%20your%20latest%20collection." 
+                   target="_blank"
+                   class="w-full sm:w-auto border-2 border-[#E3C28E] text-[#E3C28E] hover:bg-[#E3C28E] hover:text-[#210C22] px-10 py-[10px] text-xs font-bold uppercase tracking-[0.25em] transition-lux rounded-none">
+                    View Collection
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Bar / Brand Identity (Lavender Light Tint Background with Plum Text) -->
+    <section class="bg-[#F4F0F5] border-y border-[#E3C28E]/20 py-10">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="space-y-2">
+                <h4 class="font-serif-luxury text-lg font-bold text-[#210C22] tracking-wider uppercase">Premium Fabric</h4>
+                <p class="text-xs text-[#502157] tracking-widest font-semibold uppercase">100% Guaranteed Genuine Lawn & Silk</p>
+            </div>
+            <div class="space-y-2 border-y md:border-y-0 md:border-x border-[#E3C28E]/30 py-6 md:py-0">
+                <h4 class="font-serif-luxury text-lg font-bold text-[#210C22] tracking-wider uppercase">Custom Stitching</h4>
+                <p class="text-xs text-[#502157] tracking-widest font-semibold uppercase">Perfect Measurement Fitting Guarantee</p>
+            </div>
+            <div class="space-y-2">
+                <h4 class="font-serif-luxury text-lg font-bold text-[#210C22] tracking-wider uppercase">Secure Ordering</h4>
+                <p class="text-xs text-[#502157] tracking-widest font-semibold uppercase">Direct Personal WhatsApp Consultation</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Spotting Banner Design -->
+    <section class="py-12 text-center bg-[#F4F0F5]">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-[10px] tracking-[0.4em] uppercase text-[#E3C28E] font-bold mb-3">Brand Spotlight</div>
+            <h2 class="font-serif-luxury text-3xl md:text-5xl font-semibold tracking-[0.15em] text-[#210C22] mb-2 uppercase">
+                Designer Collections
+            </h2>
+            <div class="h-[1px] w-24 bg-[#E3C28E] mx-auto mb-4"></div>
+            <p class="text-xs text-gray-500 uppercase tracking-widest">Maria.B Inspired Designs & Unstitched Premium Fabrics</p>
+        </div>
+    </section>
+
+    <!-- Luxury Showcase Collection Grid -->
+    <section id="signature-collection" class="max-w-7xl mx-auto py-16 px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            
+            <!-- Luxury Product Card 1 -->
+            <div class="group flex flex-col luxury-card-shadow bg-white overflow-hidden border border-[#E3C28E]/10 hover:border-[#E3C28E]/40 transition-lux">
+                <div class="relative overflow-hidden bg-[#F4F0F5] h-[500px]">
+                    <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&q=80&w=600" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-all duration-700" 
+                         alt="Suhana Luxury Silk Collection"
+                         onerror="this.style.display='none'; this.parentNode.style.backgroundColor='#210C22'">
+                    <span class="absolute top-4 left-4 bg-[#E3C28E] text-[#210C22] text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">
+                        New Launch
+                    </span>
+                </div>
+                <div class="p-8 text-center flex-grow flex flex-col justify-between">
+                    <div>
+                        <!-- Serif Title for Product -->
+                        <h3 class="font-serif-luxury text-2xl tracking-[0.05em] text-[#210C22] font-semibold uppercase mb-2">Ethereal Lawn Suite</h3>
+                        <p class="text-[11px] text-[#502157] tracking-[0.2em] uppercase font-bold mb-4">Luxury Unstitched 3-Piece</p>
+                        
+                        <!-- Transparent Pricing Structure (Serif Pricing for Luxury Feel) -->
+                        <div class="flex justify-center items-center space-x-6 py-3 border-y border-[#F4F0F5] my-4 bg-[#F4F0F5]/50">
+                            <div class="text-center">
+                                <span class="text-[10px] uppercase text-gray-400 block tracking-widest">Suit Price</span>
+                                <span class="text-lg font-serif-luxury font-bold text-[#2B2B2B]">Rs. 5,500</span>
+                            </div>
+                            <div class="h-8 w-[1px] bg-gray-200"></div>
+                            <div class="text-center">
+                                <span class="text-[10px] uppercase text-gray-400 block tracking-widest">Silai Rate</span>
+                                <span class="text-lg font-serif-luxury font-bold text-[#502157]">Rs. 1,500</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Direct Smart Order Buttons (Clean Sans-Serif font on Buttons with WhatsApp official brand color) -->
+                    <div class="mt-6 space-y-3 font-sans-premium">
+                        <a href="https://wa.me/923208712508?text=Assalam-o-Alaikum!%20I%20want%20to%20order%20Ethereal%20Lawn%20Suite%20(Price:%20Rs.5,500)%20without%20stitching." 
+                           target="_blank"
+                           class="flex justify-center items-center space-x-2 w-full text-center py-3 border-2 border-whatsapp text-whatsapp hover:bg-whatsapp hover:text-white text-[11px] font-bold tracking-[0.2em] uppercase transition-lux rounded-sm shadow-sm">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01c12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.07 1.1 11.478 1.1c-5.412 0-9.821 4.372-9.825 9.802-.002 1.81.475 3.578 1.38 5.161l-.973 3.548 3.639-.945z"/>
+                            </svg>
+                            <span>Order Unstitched</span>
+                        </a>
+                        <a href="https://wa.me/923208712508?text=Assalam-o-Alaikum!%20I%20want%20to%20order%20Ethereal%20Lawn%20Suite%20including%20Stitching%20(Total:%20Rs.7,000).%20Please%20guide%20me%20for%20measurements." 
+                           target="_blank"
+                           class="flex justify-center items-center space-x-2 w-full text-center py-3 bg-whatsapp text-white hover:opacity-95 text-[11px] font-bold tracking-[0.2em] uppercase transition-lux rounded-sm shadow-md">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01c12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.07 1.1 11.478 1.1c-5.412 0-9.821 4.372-9.825 9.802-.002 1.81.475 3.578 1.38 5.161l-.973 3.548 3.639-.945z"/>
+                            </svg>
+                            <span>Order With Stitching</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Luxury Product Card 2 -->
+            <div class="group flex flex-col luxury-card-shadow bg-white overflow-hidden border border-[#E3C28E]/10 hover:border-[#E3C28E]/40 transition-lux">
+                <div class="relative overflow-hidden bg-[#F4F0F5] h-[500px]">
+                    <img src="https://images.unsplash.com/photo-1610030468983-9b486b86d9a1?auto=format&fit=crop&q=80&w=600" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-all duration-700" 
+                         alt="Gilded Embroidered Collection"
+                         onerror="this.style.display='none'; this.parentNode.style.backgroundColor='#210C22'">
+                    <span class="absolute top-4 left-4 bg-[#210C22] text-[#E3C28E] text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">
+                        Most Demanded
+                    </span>
+                </div>
+                <div class="p-8 text-center flex-grow flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-serif-luxury text-2xl tracking-[0.05em] text-[#210C22] font-semibold uppercase mb-2">Chiffon Formal</h3>
+                        <p class="text-[11px] text-[#502157] tracking-[0.2em] uppercase font-bold mb-4">Embroidered Silk Chiffon</p>
+                        
+                        <!-- Transparent Pricing Structure (Serif Pricing for Luxury Feel) -->
+                        <div class="flex justify-center items-center space-x-6 py-3 border-y border-[#F4F0F5] my-4 bg-[#F4F0F5]/50">
+                            <div class="text-center">
+                                <span class="text-[10px] uppercase text-gray-400 block tracking-widest">Suit Price</span>
+                                <span class="text-lg font-serif-luxury font-bold text-[#2B2B2B]">Rs. 8,900</span>
+                            </div>
+                            <div class="h-8 w-[1px] bg-gray-200"></div>
+                            <div class="text-center">
+                                <span class="text-[10px] uppercase text-gray-400 block tracking-widest">Silai Rate</span>
+                                <span class="text-lg font-serif-luxury font-bold text-[#502157]">Rs. 2,000</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Direct Smart Order Buttons (Clean Sans-Serif font on Buttons with WhatsApp official brand color) -->
+                    <div class="mt-6 space-y-3 font-sans-premium">
+                        <a href="https://wa.me/923208712508?text=Assalam-o-Alaikum!%20I%20want%20to%20order%20Chiffon%20Formal%20Suite%20(Price:%20Rs.8,900)%20without%20stitching." 
+                           target="_blank"
+                           class="flex justify-center items-center space-x-2 w-full text-center py-3 border-2 border-whatsapp text-whatsapp hover:bg-whatsapp hover:text-white text-[11px] font-bold tracking-[0.2em] uppercase transition-lux rounded-sm shadow-sm">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01c12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.07 1.1 11.478 1.1c-5.412 0-9.821 4.372-9.825 9.802-.002 1.81.475 3.578 1.38 5.161l-.973 3.548 3.639-.945z"/>
+                            </svg>
+                            <span>Order Unstitched</span>
+                        </a>
+                        <a href="https://wa.me/923208712508?text=Assalam-o-Alaikum!%20I%20want%20to%20order%20Chiffon%20Formal%20Suite%20including%20Stitching%20(Total:%20Rs.10,900).%20Please%20guide%20me%20for%20measurements." 
+                           target="_blank"
+                           class="flex justify-center items-center space-x-2 w-full text-center py-3 bg-whatsapp text-white hover:opacity-95 text-[11px] font-bold tracking-[0.2em] uppercase transition-lux rounded-sm shadow-md">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01c12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.07 1.1 11.478 1.1c-5.412 0-9.821 4.372-9.825 9.802-.002 1.81.475 3.578 1.38 5.161l-.973 3.548 3.639-.945z"/>
+                            </svg>
+                            <span>Order With Stitching</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Luxury Product Card 3 -->
+            <div class="group flex flex-col luxury-card-shadow bg-white overflow-hidden border border-[#E3C28E]/10 hover:border-[#E3C28E]/40 transition-lux">
+                <div class="relative overflow-hidden bg-[#F4F0F5] h-[500px]">
+                    <img src="https://images.unsplash.com/photo-1596783307338-706f34585ec8?auto=format&fit=crop&q=80&w=600" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-all duration-700" 
+                         alt="Velvet Rose Premium Edition"
+                         onerror="this.style.display='none'; this.parentNode.style.backgroundColor='#210C22'">
+                    <span class="absolute top-4 left-4 bg-[#E3C28E] text-[#210C22] text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">
+                        Festive Wear
+                    </span>
+                </div>
+                <div class="p-8 text-center flex-grow flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-serif-luxury text-2xl tracking-[0.05em] text-[#210C22] font-semibold uppercase mb-2">Summer Embroidered</h3>
+                        <p class="text-[11px] text-[#502157] tracking-[0.2em] uppercase font-bold mb-4">Premium Lawn Silk Edition</p>
+                        
+                        <!-- Transparent Pricing Structure (Serif Pricing for Luxury Feel) -->
+                        <div class="flex justify-center items-center space-x-6 py-3 border-y border-[#F4F0F5] my-4 bg-[#F4F0F5]/50">
+                            <div class="text-center">
+                                <span class="text-[10px] uppercase text-gray-400 block tracking-widest">Suit Price</span>
+                                <span class="text-lg font-serif-luxury font-bold text-[#2B2B2B]">Rs. 4,200</span>
+                            </div>
+                            <div class="h-8 w-[1px] bg-gray-200"></div>
+                            <div class="text-center">
+                                <span class="text-[10px] uppercase text-gray-400 block tracking-widest">Silai Rate</span>
+                                <span class="text-lg font-serif-luxury font-bold text-[#502157]">Rs. 1,200</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Direct Smart Order Buttons (Clean Sans-Serif font on Buttons with WhatsApp official brand color) -->
+                    <div class="mt-6 space-y-3 font-sans-premium">
+                        <a href="https://wa.me/923208712508?text=Assalam-o-Alaikum!%20I%20want%20to%20order%20Summer%20Embroidered%20Suite%20(Price:%20Rs.4,200)%20without%20stitching." 
+                           target="_blank"
+                           class="flex justify-center items-center space-x-2 w-full text-center py-3 border-2 border-whatsapp text-whatsapp hover:bg-whatsapp hover:text-white text-[11px] font-bold tracking-[0.2em] uppercase transition-lux rounded-sm shadow-sm">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01c12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.07 1.1 11.478 1.1c-5.412 0-9.821 4.372-9.825 9.802-.002 1.81.475 3.578 1.38 5.161l-.973 3.548 3.639-.945z"/>
+                            </svg>
+                            <span>Order Unstitched</span>
+                        </a>
+                        <a href="https://wa.me/923208712508?text=Assalam-o-Alaikum!%20I%20want%20to%20order%20Summer%20Embroidered%20Suite%20including%20Stitching%20(Total:%20Rs.5,400).%20Please%20guide%20me%20for%20measurements." 
+                           target="_blank"
+                           class="flex justify-center items-center space-x-2 w-full text-center py-3 bg-whatsapp text-white hover:opacity-95 text-[11px] font-bold tracking-[0.2em] uppercase transition-lux rounded-sm shadow-md">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01c12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.07 1.1 11.478 1.1c-5.412 0-9.821 4.372-9.825 9.802-.002 1.81.475 3.578 1.38 5.161l-.973 3.548 3.639-.945z"/>
+                            </svg>
+                            <span>Order With Stitching</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Custom Stitching Process / Information Section -->
+    <section id="stitching-info" class="bg-[#F4F0F5] border-t border-[#E3C28E]/20 py-20 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="text-[#502157] text-[11px] font-bold tracking-[0.4em] uppercase block mb-3">Our Signature Service</span>
+            <h2 class="font-serif-luxury text-3xl md:text-5xl font-bold tracking-wider text-[#210C22] uppercase mb-8">Bespoke Fitting & Stitching</h2>
+            <div class="h-[1px] w-24 bg-[#E3C28E] mx-auto mb-10"></div>
+            
+            <p class="text-[#2B2B2B]/80 text-sm tracking-wide leading-relaxed max-w-2xl mx-auto mb-12">
+                Ayesha's Boutique is known for perfect custom fitting. Once you place an order, our expert tailors will consult with you on WhatsApp regarding sizing, styling designs, necklines, and sleeve patterns.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 border border-[#E3C28E]/20">
+                    <div class="text-3xl font-serif-luxury text-[#E3C28E] mb-3">01</div>
+                    <h4 class="font-sans-premium font-bold uppercase text-[12px] tracking-widest text-[#210C22] mb-2">Provide Sizes</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed">Share custom measurements or select from standard XS-XL size chart on WhatsApp.</p>
+                </div>
+                <div class="bg-white p-8 border border-[#E3C28E]/20">
+                    <div class="text-3xl font-serif-luxury text-[#E3C28E] mb-3">02</div>
+                    <h4 class="font-sans-premium font-bold uppercase text-[12px] tracking-widest text-[#210C22] mb-2">Choose Design</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed">Customize necklines, laces, lining (astar), tassels, or share custom design inspiration images.</p>
+                </div>
+                <div class="bg-white p-8 border border-[#E3C28E]/20">
+                    <div class="text-3xl font-serif-luxury text-[#E3C28E] mb-3">03</div>
+                    <h4 class="font-sans-premium font-bold uppercase text-[12px] tracking-widest text-[#210C22] mb-2">Swift Stitching</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed">Our in-house expert tailors complete the stitching within 5-7 working days perfectly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deep Plum Luxury Footer with Pale Gold Highlights -->
+    <footer id="footer" class="bg-[#210C22] text-[#FFFFFF] py-16 px-12 border-t border-[#E3C28E]/30">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+            <div class="space-y-4">
+                <h3 class="font-serif-luxury text-2xl tracking-widest text-[#FFFFFF]">AYESHA'S <span class="text-[#E3C28E]">BOUTIQUE</span></h3>
+                <p class="text-xs text-[#E3C28E] tracking-widest uppercase">Luxury Unstitched Pakistani Wear curated dynamically.</p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-[#E3C28E]">Quick Contacts</h4>
+                <p class="text-sm tracking-widest font-light">Call/WhatsApp: +92 320 8712508</p>
+                <p class="text-sm tracking-widest font-light">Location: Pakistan</p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-[#E3C28E]">Design Integrity</h4>
+                <p class="text-xs text-gray-400 tracking-wider leading-relaxed">
+                    All dresses are premium quality fabric replication inspired by contemporary designers. Custom design patterns are available upon request.
+                </p>
+            </div>
+        </div>
+        <div class="h-[1px] w-full bg-[#E3C28E]/20 my-10"></div>
+        <div class="text-center text-[11px] tracking-widest text-gray-400 uppercase">
+            &copy; 2026 Ayesha's Boutique. All Rights Reserved. Powered by GitHub Pages.
+        </div>
+    </footer>
+
+</body>
+</html>
