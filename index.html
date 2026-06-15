@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayesha's Boutique | Luxury Unstitched</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400&display=swap');
+        .font-luxury { font-family: 'Playfair Display', serif; }
+        .lux-bg { background-color: #fdfbf7; }
+        .chat-box { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="lux-bg text-slate-900 overflow-x-hidden">
+
+    <nav class="flex justify-between items-center py-6 px-10 border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0 z-50">
+        <div class="text-3xl font-luxury tracking-widest text-slate-800">AYESHA'S BOUTIQUE</div>
+        <a href="https://wa.me/923208712508" class="bg-emerald-900 text-white px-8 py-3 text-xs uppercase tracking-widest hover:bg-emerald-700 transition">WhatsApp Now</a>
+    </nav>
+
+    <section class="relative h-[80vh] flex items-center justify-center text-center">
+        <img src="https://images.unsplash.com/photo-1595777457583-95e059d5e7b8?q=80&w=2000" class="absolute inset-0 w-full h-full object-cover brightness-50">
+        <div class="relative z-10 text-white">
+            <h1 class="text-7xl font-luxury mb-4">Refined Luxury</h1>
+            <p class="text-xl font-light italic mb-8">Curated Unstitched Suits for the Modern Woman</p>
+            <a href="#shop" class="border border-white px-10 py-3 uppercase tracking-widest hover:bg-white hover:text-black transition">Explore Collection</a>
+        </div>
+    </section>
+
+    <div class="fixed bottom-6 right-6 z-50 w-80 chat-box bg-white rounded-xl overflow-hidden border border-slate-200">
+        <div class="bg-emerald-900 text-white p-4 font-bold text-sm">LIVE CHAT</div>
+        <div class="p-4 h-48 overflow-y-auto bg-slate-50 text-xs space-y-3">
+            <div class="bg-white p-2 rounded shadow-sm"><b>Hina:</b> Is this still in stock?</div>
+            <div class="bg-emerald-100 p-2 rounded shadow-sm text-right"><b>Ayesha:</b> Yes dear! Available now.</div>
+        </div>
+        <input type="text" placeholder="Ask Ayesha-s-Boutique..." class="w-full p-3 border-t text-xs outline-none">
+    </div>
+
+    <section id="shop" class="max-w-7xl mx-auto py-20 px-6">
+        <h2 class="text-4xl font-luxury text-center mb-16 uppercase">Customer Reviews</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 border-l-4 border-emerald-900 shadow-md">
+                <p class="italic text-slate-600 mb-4">"The fabric quality is beyond amazing. Loved the packing!"</p>
+                <h4 class="font-bold">— Ayesha from Lahore</h4>
+                <div class="text-amber-500 text-sm">★★★★★</div>
+            </div>
+            <div class="bg-white p-6 border-l-4 border-emerald-900 shadow-md">
+                <p class="italic text-slate-600 mb-4">"My wedding outfit looked perfect. Excellent service."</p>
+                <h4 class="font-bold">— Sadaf from Islamabad</h4>
+                <div class="text-amber-500 text-sm">★★★★★</div>
+            </div>
+            <div class="bg-white p-6 border-l-4 border-emerald-900 shadow-md">
+                <p class="italic text-slate-600 mb-4">"Super fast delivery and very professional stitching."</p>
+                <h4 class="font-bold">— Zara from Karachi</h4>
+                <div class="text-amber-500 text-sm">★★★★★</div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
