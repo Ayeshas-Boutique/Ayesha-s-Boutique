@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayesha's Boutique | Luxury Unstitched</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #000000; color: #ffffff; }
+        .gold { color: #d4af37; }
+        .bg-luxury-black { background-color: #0a0a0a; }
+        .hero-bg { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1595777457583-95e059d5e7b8?auto=format&fit=crop&q=80'); background-size: cover; background-position: center; }
+    </style>
+</head>
+<body>
+    <nav class="flex justify-between items-center px-12 py-8 sticky top-0 bg-black/90 z-50 border-b border-gray-800">
+        <div class="text-3xl font-serif tracking-tighter uppercase">Ayesha's <span class="gold">Boutique</span></div>
+        <div class="space-x-8 text-xs uppercase tracking-widest font-semibold hidden md:block">
+            <a href="#home" class="hover:text-gold transition">Home</a>
+            <a href="#collections" class="hover:text-gold transition">Collections</a>
+            <a href="#track" class="hover:text-gold transition">Track Order</a>
+        </div>
+        <a href="https://wa.me/923208712508" class="border-gold px-6 py-3 text-xs uppercase hover:bg-gold hover:text-black transition">WhatsApp Us</a>
+    </nav>
+
+    <section id="home" class="hero-bg h-[90vh] flex flex-col items-center justify-center text-center px-6">
+        <h1 class="text-6xl md:text-8xl font-serif mb-6">Refined Elegance</h1>
+        <p class="text-lg text-gray-300 mb-10 max-w-xl italic">The finest collection of premium Pakistani unstitched suites, curated for the modern woman.</p>
+        <a href="#collections" class="bg-white text-black px-12 py-4 font-bold uppercase tracking-widest hover:bg-gold transition">Explore Collection</a>
+    </section>
+
+    <section id="collections" class="py-24 px-12">
+        <h2 class="text-4xl font-serif text-center mb-16 uppercase tracking-widest">Our Collections</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="group relative overflow-hidden h-[500px] border border-gray-800">
+                <div class="absolute inset-0 bg-gray-900"></div>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <h3 class="text-2xl font-serif">Summer Collection</h3>
+                    <p class="text-gold mt-2">Coming Soon</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="track" class="py-24 bg-luxury-black border-y border-gray-800">
+        <div class="max-w-xl mx-auto text-center">
+            <h3 class="text-3xl font-serif mb-6">Order Status</h3>
+            <p class="text-gray-400 mb-8">Enter your Tracking ID to view delivery status.</p>
+            <div class="flex gap-2">
+                <input type="text" placeholder="AB-XXXXXX" class="w-full bg-black p-4 border border-gray-700 outline-none focus:border-gold">
+                <button class="bg-gold text-black px-8 font-bold uppercase">Track</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-16 px-12 text-center border-t border-gray-800">
+        <p class="text-gray-500 text-xs uppercase tracking-widest mb-4">Contact: +92 320 8712508</p>
+        <div class="space-x-6 text-xs text-gray-400">
+            <a href="#" class="hover:text-white">Terms & Conditions</a>
+            <a href="#" class="hover:text-white">Privacy Policy</a>
+        </div>
+    </footer>
+</body>
+</html>
