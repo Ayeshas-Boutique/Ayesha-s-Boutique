@@ -1,408 +1,1048 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ayesha's Boutique | Luxury Pakistani Wear</title>
-    <!-- Tailwind CSS for Ultra-Fast Loading -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>AYESHA BOUTIQUE | Luxury Pakistani Fashion</title>
+    <meta name="description" content="Discover elegant Pakistani fashion, embroidered lawn, luxury suits, and fancy pret. Order easily via WhatsApp.">
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Premium Google Fonts (Playfair Display for Serif & Montserrat for Sans-Serif) -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Montserrat:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                screens: {
+                    'xs': '475px',
+                    'sm': '640px',
+                    'md': '768px',
+                    'lg': '1024px',
+                    'xl': '1280px',
+                    '2xl': '1536px',
+                },
+                extend: {
+                    colors: {
+                        brand: {
+                            charcoal: '#171717',
+                            darkbrown: '#3A3028',
+                            taupe: '#A99A8B',
+                            beige: '#D8C8B5',
+                            cream: '#F1ECE3',
+                            ivory: '#F8F5EF',
+                            offwhite: '#FFFDF9',
+                            gold: '#B8955A',
+                            goldlight: '#D4C2A5'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Cormorant Garamond', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* Typography classes as requested */
-        .font-serif-luxury { font-family: 'Playfair Display', serif; }
-        .font-sans-premium { font-family: 'Montserrat', sans-serif; }
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #171717;
+            color: #F8F5EF;
+            -webkit-tap-highlight-color: transparent;
+        }
+        h1, h2, h3, h4, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
         
-        /* Custom Luxury Scrollbar using Purple and Gold */
+        /* Custom Smooth Scrollbar for Desktop */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #210C22;
+            background: #171717;
         }
         ::-webkit-scrollbar-thumb {
-            background: #E3C28E;
-            border-radius: 4px;
-        }
-
-        /* Hero Text Shadow and Gradient Overlays for Readability */
-        .premium-text-shadow {
-            text-shadow: 2px 4px 12px rgba(33, 12, 34, 0.7);
-        }
-        .luxury-card-shadow {
-            box-shadow: 0 20px 40px -15px rgba(80, 33, 87, 0.15);
+            background: #3A3028;
+            border: 1px solid #B8955A;
+            border-radius: 999px;
         }
         
-        /* Smooth Custom Transitions */
-        .transition-lux {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Touch friendly hide-scrollbar utility */
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
         }
 
-        /* Original WhatsApp Brand Colors */
-        .bg-whatsapp {
-            background-color: #25D366;
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #F8F5EF 0%, #B8955A 60%, #9A7B45 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .bg-whatsapp:hover {
-            background-color: #20ba56;
+
+        .glass-panel {
+            background: rgba(23, 23, 23, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
-        .text-whatsapp {
-            color: #25D366;
+
+        /* Safe area spacing for mobile devices with notch/home bar */
+        .safe-pb {
+            padding-bottom: env(safe-area-inset-bottom, 1rem);
         }
     </style>
 </head>
-<body class="font-sans-premium bg-[#F4F0F5] text-[#2B2B2B] antialiased">
+<body class="bg-brand-charcoal text-brand-ivory antialiased selection:bg-brand-gold selection:text-brand-charcoal">
 
-    <!-- Floating WhatsApp Button (Strictly following design guidelines) -->
-    <a href="https://wa.me/923208712508?text=Hi%20Ayesha's%20Boutique,%20I'm%20visiting%20your%20website%20and%20would%20like%20to%20know%20more%20about%20your%20luxury%20collections." 
-       target="_blank" 
-       rel="noopener noreferrer"
-       class="fixed bottom-6 right-6 z-[9999] flex items-center justify-center bg-whatsapp text-white w-14 h-14 md:w-16 md:h-16 rounded-full shadow-[0_4px_15px_rgba(37,211,102,0.4)] hover:shadow-[0_8px_25px_rgba(37,211,102,0.6)] transform hover:-translate-y-1.5 transition-all duration-300 group"
-       title="Chat with us on WhatsApp">
-        <!-- High-Resolution Clean WhatsApp SVG Icon -->
-        <svg class="w-7 h-7 md:w-8 md:h-8 fill-current transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.07 1.1 11.478 1.1c-5.412 0-9.821 4.372-9.825 9.802-.002 1.81.475 3.578 1.38 5.161l-.973 3.548 3.639-.945z"/>
-        </svg>
-    </a>
+    <script>
+        const STORE_CONFIG = {
+            name: "AYESHA BOUTIQUE",
+            whatsappNumber: "923208712508",
+            currency: "PKR",
+            currencySymbol: "PKR ",
+            phone: "+92 320 8712508",
+            location: "Pakistan"
+        };
 
-    <!-- Top Premium Brand Header (Deep Plum Background #210C22) -->
-    <header class="bg-[#210C22] text-[#FFFFFF] border-b border-[#E3C28E]/10 px-6 md:px-12 py-4">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        // Secret Admin PIN Code
+        const ADMIN_SECRET_PIN = "7860";
+
+        // Initial catalog starts completely empty as requested
+        const INITIAL_PRODUCTS = [];
+    </script>
+
+    <div class="bg-brand-darkbrown text-brand-cream text-[11px] sm:text-xs py-2 px-3 sm:px-4 text-center tracking-wider sm:tracking-widest font-light border-b border-brand-gold/30 flex items-center justify-center">
+        <span class="truncate"><i class="fa-solid fa-truck-fast text-brand-gold mr-1.5"></i> Doorstep Delivery Across Pakistan | WhatsApp: +92 320 8712508</span>
+    </div>
+
+    <!-- Toast Notification Floating Container -->
+    <div id="toastContainer" class="fixed top-4 right-4 sm:top-5 sm:right-5 z-50 flex flex-col gap-2 pointer-events-none max-w-[90vw] sm:max-w-xs"></div>
+
+    <header class="sticky top-0 z-40 glass-panel border-b border-brand-gold/20 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
             
-            <!-- Left: Wholesale Link (Montserrat Light) -->
-            <div class="text-[11px] uppercase tracking-[0.2em] text-[#E3C28E] font-medium hover:text-[#FFFFFF] transition duration-300">
-                <a href="#stitching-info">Wholesale Enquiries</a>
+            <!-- Mobile Menu Toggle Button -->
+            <div class="flex items-center lg:hidden">
+                <button onclick="toggleMobileMenu()" class="text-brand-ivory hover:text-brand-gold p-2 rounded-lg active:scale-95 transition-transform" aria-label="Open Menu">
+                    <i class="fa-solid fa-bars text-lg sm:text-xl"></i>
+                </button>
             </div>
 
-            <!-- Center: Crown Logo and Luxurious Brand Name -->
-            <div class="flex flex-col items-center">
-                <!-- Golden Crown SVG Icon -->
-                <svg class="w-6 h-6 text-[#E3C28E] mb-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M2 19h20v2H2v-2zm2-2h16l-3-9-4 4-3-6-3 6-3-4-3 9z"/>
-                </svg>
-                <a href="#" class="font-serif-luxury text-2xl md:text-3xl lg:text-4xl font-bold tracking-[0.12em] text-[#FFFFFF] hover:opacity-90">
-                    Ayesha's <span class="text-[#E3C28E] italic font-normal">Boutique</span>
-                </a>
+            <!-- Brand Logo Header -->
+            <div class="text-center cursor-pointer select-none flex-1 lg:flex-initial" onclick="switchView('shop')">
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-serif font-bold tracking-widest gold-gradient-text uppercase">AYESHA BOUTIQUE</h1>
+                <p class="text-[9px] sm:text-[10px] tracking-[0.35em] sm:tracking-[0.4em] uppercase text-brand-taupe font-sans mt-0.5">BOUTIQUE</p>
             </div>
 
-            <!-- Right: Search, Wishlist, and Cart Actions -->
-            <div class="flex items-center space-x-6">
-                <!-- Search Bar -->
-                <div class="relative hidden sm:block">
-                    <input type="text" placeholder="Search..." class="bg-[#261126] text-[11px] text-white tracking-wider border border-[#E3C28E]/30 rounded-full px-4 py-1.5 focus:outline-none focus:border-[#E3C28E] w-40 transition duration-300">
-                    <span class="absolute right-3 top-2 text-[#E3C28E]">
-                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                    </span>
-                </div>
-                <!-- Heart Icon -->
-                <a href="#" class="text-[#E3C28E] hover:text-[#FFFFFF] transition duration-300">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                </a>
-                <!-- Cart Icon -->
-                <a href="#" class="text-[#E3C28E] hover:text-[#FFFFFF] transition duration-300">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                </a>
-            </div>
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden lg:flex items-center space-x-8 text-xs font-semibold uppercase tracking-widest">
+                <button id="navShopBtn" onclick="switchView('shop')" class="text-brand-gold border-b-2 border-brand-gold pb-1 transition-all">Shop Collection</button>
+                <button id="navAdminBtn" onclick="switchView('admin')" class="bg-brand-gold text-brand-charcoal px-4 py-2 rounded-full font-bold text-xs uppercase tracking-wider hover:bg-brand-cream transition-all shadow-md flex items-center gap-1.5 active:scale-95">
+                    <i class="fa-solid fa-lock text-xs"></i> Owner Admin Panel
+                </button>
+            </nav>
 
+            <!-- Cart Bag Toggle Button -->
+            <div class="flex items-center">
+                <button onclick="toggleCartDrawer()" class="relative flex items-center gap-1.5 sm:gap-2 bg-brand-darkbrown text-brand-ivory border border-brand-gold/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full hover:border-brand-gold transition-all shadow-lg active:scale-95">
+                    <i class="fa-solid fa-bag-shopping text-brand-gold text-xs sm:text-sm"></i>
+                    <span class="text-xs font-bold hidden sm:inline">Bag</span>
+                    <span id="cartBadge" class="bg-brand-gold text-brand-charcoal text-[10px] sm:text-[11px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- Main Navigation Bar (Clean Menu items) -->
-    <nav class="sticky top-0 z-50 bg-[#210C22] border-b border-[#E3C28E]/20 py-3 px-6 text-center transition-all duration-300">
-        <div class="max-w-7xl mx-auto flex flex-wrap justify-center items-center gap-x-6 gap-y-2 md:gap-x-10 text-[11px] font-bold tracking-[0.2em] uppercase">
-            <a href="#home" class="text-[#E3C28E] border-b-2 border-[#E3C28E] pb-1">Home</a>
-            <a href="#new-arrivals" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">New Arrivals</a>
-            <a href="#brands" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">Brands</a>
-            <a href="#signature-collection" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">Unstitched</a>
-            <a href="#party-wear" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">Party Wear</a>
-            <a href="#fancy" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">Fancy</a>
-            <a href="#kids" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">Kids</a>
-            <a href="#wholesale" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">Wholesale</a>
-            <a href="#footer" class="text-[#FFFFFF] hover:text-[#E3C28E] transition duration-300">About Us</a>
-        </div>
-    </nav>
-
-    <!-- Hero Section with Premium Backdrop & Two Buttons (Decreased text size for Elegance) -->
-    <section id="home" class="relative h-[85vh] w-full flex items-center justify-center overflow-hidden">
-        <!-- Real Model Backdrop Image -->
-        <img src="https://images.unsplash.com/photo-1595777457583-95e059d5e7b8?auto=format&fit=crop&q=85&w=2000" 
-             class="absolute inset-0 w-full h-full object-cover object-center scale-100 transition duration-1000" 
-             alt="Ayesha's Boutique Premium Backdrop"
-             onerror="this.style.display='none'; this.parentNode.style.backgroundColor='#210C22'">
-        
-        <!-- Luxury Plum and Black Overlay for Rich Look and High Contrast -->
-        <div class="absolute inset-0 bg-gradient-to-r from-[#210C22]/90 via-[#210C22]/50 to-[#210C22]/90"></div>
-        
-        <!-- Gold and Elegant White Text Content -->
-        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-            <!-- Serif Fonts for Premium Elegant Heading (Reduced size) -->
-            <h1 class="font-serif-luxury text-2xl md:text-4xl lg:text-5xl text-[#FFFFFF] font-bold tracking-[0.05em] leading-tight mb-4 premium-text-shadow">
-                Elegance Refined – <br><span class="text-[#E3C28E] font-normal italic">From Pakistan to the World</span>
-            </h1>
-            <p class="text-sm md:text-base text-[#F4F0F5]/90 font-light tracking-[0.1em] max-w-2xl mx-auto mb-10 leading-relaxed">
-                Discover unstitched luxury suits styled to perfection. Customize your fit with our premium in-house stitching services.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <a href="#signature-collection" class="w-full sm:w-auto bg-[#E3C28E] hover:bg-white text-[#210C22] hover:text-black px-12 py-3 text-xs font-bold uppercase tracking-[0.25em] transition-lux rounded-none shadow-lg">
-                    Shop Now
-                </a>
-                <a href="https://wa.me/923208712508?text=Hi%20Ayesha's%20Boutique,%20I%20want%20to%20view%20your%20latest%20collection." 
-                   target="_blank"
-                   class="w-full sm:w-auto border-2 border-[#E3C28E] text-[#E3C28E] hover:bg-[#E3C28E] hover:text-[#210C22] px-10 py-[10px] text-xs font-bold uppercase tracking-[0.25em] transition-lux rounded-none">
-                    View Collection
-                </a>
+    <div id="mobileMenuModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden transition-opacity">
+        <div class="bg-brand-charcoal w-4/5 max-w-xs h-full p-5 sm:p-6 flex flex-col justify-between border-r border-brand-gold/20 shadow-2xl safe-pb">
+            <div>
+                <div class="flex items-center justify-between pb-5 border-b border-brand-gold/20">
+                    <div>
+                        <h2 class="font-serif text-base font-bold uppercase gold-gradient-text">AYESHA BOUTIQUE</h2>
+                        <p class="text-[9px] text-brand-taupe tracking-widest uppercase">BOUTIQUE</p>
+                    </div>
+                    <button onclick="toggleMobileMenu()" class="text-brand-ivory p-2 hover:text-brand-gold" aria-label="Close Menu">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+                <div class="flex flex-col space-y-4 pt-6 text-xs uppercase tracking-widest">
+                    <button onclick="switchView('shop'); toggleMobileMenu();" class="text-left py-2.5 border-b border-brand-gold/10 hover:text-brand-gold flex items-center justify-between">
+                        <span>Shop Collection</span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-brand-gold/50"></i>
+                    </button>
+                    <button onclick="switchView('admin'); toggleMobileMenu();" class="text-left py-2.5 text-brand-gold font-bold flex items-center gap-2 border-b border-brand-gold/10">
+                        <i class="fa-solid fa-lock"></i>
+                        <span>Owner Admin Panel</span>
+                    </button>
+                </div>
+            </div>
+            <div class="pt-6 border-t border-brand-gold/20 text-center">
+                <p class="text-[11px] text-brand-taupe"><i class="fa-solid fa-location-dot text-brand-gold mr-1"></i> Location: <span class="text-brand-gold font-bold">Pakistan</span></p>
+                <p class="text-[10px] text-brand-taupe/70 mt-1">Direct WhatsApp: +92 320 8712508</p>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Why Us Bar / Brand Identity (Lavender Light Tint Background with Plum Text) -->
-    <section class="bg-[#F4F0F5] border-y border-[#E3C28E]/20 py-10">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div class="space-y-2">
-                <h4 class="font-serif-luxury text-lg font-bold text-[#210C22] tracking-wider uppercase">Premium Fabric</h4>
-                <p class="text-xs text-[#502157] tracking-widest font-semibold uppercase">100% Guaranteed Genuine Lawn & Silk</p>
-            </div>
-            <div class="space-y-2 border-y md:border-y-0 md:border-x border-[#E3C28E]/30 py-6 md:py-0">
-                <h4 class="font-serif-luxury text-lg font-bold text-[#210C22] tracking-wider uppercase">Custom Stitching</h4>
-                <p class="text-xs text-[#502157] tracking-widest font-semibold uppercase">Perfect Measurement Fitting Guarantee</p>
-            </div>
-            <div class="space-y-2">
-                <h4 class="font-serif-luxury text-lg font-bold text-[#210C22] tracking-wider uppercase">Secure Ordering</h4>
-                <p class="text-xs text-[#502157] tracking-widest font-semibold uppercase">Direct Personal WhatsApp Consultation</p>
-            </div>
-        </div>
-    </section>
+    <main class="min-h-[calc(100vh-160px)]">
 
-    <!-- Brand Spotting Banner Design -->
-    <section class="py-12 text-center bg-[#F4F0F5]">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="text-[10px] tracking-[0.4em] uppercase text-[#E3C28E] font-bold mb-3">Brand Spotlight</div>
-            <h2 class="font-serif-luxury text-3xl md:text-5xl font-semibold tracking-[0.15em] text-[#210C22] mb-2 uppercase">
-                Designer Collections
-            </h2>
-            <div class="h-[1px] w-24 bg-[#E3C28E] mx-auto mb-4"></div>
-            <p class="text-xs text-gray-500 uppercase tracking-widest">Maria.B Inspired Designs & Unstitched Premium Fabrics</p>
-        </div>
-    </section>
-
-    <!-- Luxury Showcase Collection Grid -->
-    <section id="signature-collection" class="max-w-7xl mx-auto py-16 px-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <!-- ================= SHOP STOREFRONT VIEW ================= -->
+        <section id="shopView" class="block">
             
-            <!-- Luxury Product Card 1 -->
-            <div class="group flex flex-col luxury-card-shadow bg-white overflow-hidden border border-[#E3C28E]/10 hover:border-[#E3C28E]/40 transition-lux">
-                <div class="relative overflow-hidden bg-[#F4F0F5] h-[500px]">
-                    <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&q=80&w=600" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-all duration-700" 
-                         alt="Suhana Luxury Silk Collection"
-                         onerror="this.style.display='none'; this.parentNode.style.backgroundColor='#210C22'">
-                    <span class="absolute top-4 left-4 bg-[#E3C28E] text-[#210C22] text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">
-                        New Launch
+            <!-- Hero Banner -->
+            <div class="relative bg-gradient-to-b from-brand-charcoal via-brand-darkbrown to-brand-charcoal py-10 sm:py-16 px-4 border-b border-brand-gold/20 text-center overflow-hidden">
+                <div class="max-w-3xl mx-auto relative z-10">
+                    <span class="inline-block px-3 sm:px-4 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/30 text-brand-gold text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase mb-3 sm:mb-4">
+                        Authentic Pakistani Fashion
+                    </span>
+                    <h2 class="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-brand-ivory mb-3 sm:mb-4 leading-tight">
+                        Exquisite Handcrafted <br><span class="gold-gradient-text">Pakistani Designer Suits</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-brand-beige/90 max-w-xl mx-auto leading-relaxed px-2">
+                        Explore embroidered lawn, festive organza, velvet pret, and luxury 3-piece collections crafted with timeless heritage.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Category Pills Filter & Catalog Container -->
+            <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
+                <div class="flex items-center justify-between mb-4 sm:mb-6">
+                    <h3 class="font-serif text-lg sm:text-xl font-bold text-brand-ivory flex items-center gap-2">
+                        <i class="fa-solid fa-gem text-brand-gold text-xs sm:text-sm"></i> Available Collection
+                    </h3>
+                    <span id="productCountBadge" class="text-[10px] sm:text-xs bg-brand-darkbrown text-brand-gold border border-brand-gold/30 px-2.5 py-1 rounded-full font-bold">
+                        0 Items
                     </span>
                 </div>
-                <div class="p-8 text-center flex-grow flex flex-col justify-between">
-                    <div>
-                        <!-- Serif Title for Product -->
-                        <h3 class="font-serif-luxury text-2xl tracking-[0.05em] text-[#210C22] font-semibold uppercase mb-2">Ethereal Lawn Suite</h3>
-                        <p class="text-[11px] text-[#502157] tracking-[0.2em] uppercase font-bold mb-4">Luxury Unstitched 3-Piece</p>
-                        
-                        <!-- Transparent Pricing Structure (Serif Pricing for Luxury Feel) -->
-                        <div class="flex justify-center items-center space-x-6 py-3 border-y border-[#F4F0F5] my-4 bg-[#F4F0F5]/50">
-                            <div class="text-center">
-                                <span class="text-[10px] uppercase text-gray-400 block tracking-widest">Suit Price</span>
-                                <span class="text-lg font-serif-luxury font-bold text-[#2B2B2B]">Rs. 5,500</span>
-                            </div>
-                            <div class="h-8 w-[1px] bg-gray-200"></div>
-                            <div class="text-center">
-                                <span class="text-[10px] uppercase text-gray-400 block tracking-widest">Silai Rate</span>
-                                <span class="text-lg font-serif-luxury font-bold text-[#502157]">Rs. 1,500</span>
-                            </div>
+
+                <!-- Touch Scrollable Horizontal Categories Strip -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-3 pt-1 hide-scrollbar -mx-3 px-3 sm:mx-0 sm:px-0" id="categoryPillsContainer">
+                    <!-- Dynamic Category Pills Rendered via JS -->
+                </div>
+
+                <div id="productsGrid" class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-4 sm:mt-6">
+                    <!-- Products rendered via JS -->
+                </div>
+
+                <!-- Empty State (Shown when no suits exist) -->
+                <div id="emptyCatalogState" class="hidden text-center py-12 sm:py-20 px-4 bg-brand-darkbrown/40 border border-brand-gold/20 rounded-2xl sm:rounded-3xl mt-4 sm:mt-6">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 bg-brand-darkbrown text-brand-gold rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-gold/30 text-xl sm:text-2xl shadow-inner">
+                        <i class="fa-solid fa-shirt"></i>
+                    </div>
+                    <h4 class="font-serif text-xl sm:text-2xl font-bold text-brand-ivory mb-2">No Suits Available Yet</h4>
+                    <p class="text-xs text-brand-beige/80 max-w-md mx-auto mb-6 leading-relaxed">
+                        The store catalog is currently empty. As the boutique owner, unlock the Admin Panel using your PIN to upload new suits.
+                    </p>
+                    <button onclick="switchView('admin')" class="px-5 sm:px-6 py-3 bg-brand-gold text-brand-charcoal font-bold rounded-xl text-xs uppercase tracking-wider hover:bg-brand-cream transition-all shadow-xl active:scale-95">
+                        <i class="fa-solid fa-plus-circle mr-1.5"></i> Go To Owner Admin Panel
+                    </button>
+                </div>
+            </div>
+
+            <!-- Responsive Features Banner -->
+            <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12 border-t border-brand-gold/10">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center">
+                    <div class="p-5 sm:p-6 border border-brand-gold/20 rounded-2xl bg-brand-darkbrown/30">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-brand-darkbrown text-brand-gold rounded-full flex items-center justify-center mx-auto mb-3 text-base sm:text-lg border border-brand-gold/30">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <h4 class="font-serif font-bold text-brand-cream text-sm sm:text-base mb-1">Doorstep Express Delivery</h4>
+                        <p class="text-[11px] sm:text-xs text-brand-taupe">Fast delivery across Pakistan within 2-4 business days.</p>
+                    </div>
+
+                    <div class="p-5 sm:p-6 border border-brand-gold/20 rounded-2xl bg-brand-darkbrown/30">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-brand-darkbrown text-brand-gold rounded-full flex items-center justify-center mx-auto mb-3 text-base sm:text-lg border border-brand-gold/30">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <h4 class="font-serif font-bold text-brand-cream text-sm sm:text-base mb-1">Direct WhatsApp Ordering</h4>
+                        <p class="text-[11px] sm:text-xs text-brand-taupe">Place order directly on WhatsApp with complete suit details.</p>
+                    </div>
+
+                    <div class="p-5 sm:p-6 border border-brand-gold/20 rounded-2xl bg-brand-darkbrown/30">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-brand-darkbrown text-brand-gold rounded-full flex items-center justify-center mx-auto mb-3 text-base sm:text-lg border border-brand-gold/30">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h4 class="font-serif font-bold text-brand-cream text-sm sm:text-base mb-1">100% Guaranteed Quality</h4>
+                        <p class="text-[11px] sm:text-xs text-brand-taupe">Premium fabrics, intricate embroidery & stitching perfection.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= OWNER ADMIN PANEL VIEW ================= -->
+        <section id="adminView" class="hidden max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-brand-gold/20 mb-6 sm:mb-8">
+                <div>
+                    <span class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-brand-gold"><i class="fa-solid fa-shield-cat"></i> Authenticated Owner Area</span>
+                    <h2 class="font-serif text-2xl sm:text-3xl font-bold text-brand-ivory mt-0.5">Boutique Management Panel</h2>
+                    <p class="text-xs text-brand-taupe">Upload new suits, edit prices, replace images, or manage product catalog.</p>
+                </div>
+                <div class="flex items-center gap-2.5 w-full sm:w-auto">
+                    <button onclick="switchView('shop')" class="flex-1 sm:flex-none px-4 py-2 border border-brand-gold/40 text-brand-gold hover:bg-brand-gold hover:text-brand-charcoal rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-center">
+                        <i class="fa-solid fa-eye mr-1"></i> View Shop
+                    </button>
+                    <button onclick="lockAdminAccess()" class="flex-1 sm:flex-none px-4 py-2 bg-stone-800 text-amber-200 border border-brand-gold/30 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-stone-700 transition-all text-center">
+                        <i class="fa-solid fa-lock mr-1"></i> Lock Panel
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+                
+                <!-- Left Column: Post Suit Form -->
+                <div class="lg:col-span-7 bg-brand-darkbrown/50 border border-brand-gold/30 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl relative">
+                    <div class="flex items-center gap-3 mb-5 pb-4 border-b border-brand-gold/20">
+                        <div class="w-8 h-8 sm:w-9 sm:h-9 bg-brand-gold text-brand-charcoal rounded-full flex items-center justify-center font-bold text-xs sm:text-sm shrink-0">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-serif font-bold text-lg sm:text-xl text-brand-ivory">Post Suit / Naya Suit Upload Karein</h3>
+                            <p class="text-[11px] sm:text-xs text-brand-taupe">Upload photo from Mobile Camera / Gallery or PC.</p>
                         </div>
                     </div>
-                    
-                    <!-- Direct Smart Order Buttons (Clean Sans-Serif font on Buttons with WhatsApp official brand color) -->
-                    <div class="mt-6 space-y-3 font-sans-premium">
-                        <a href="https://wa.me/923208712508?text=Assalam-o-Alaikum!%20I%20want%20to%20order%20Ethereal%20Lawn%20Suite%20(Price:%20Rs.5,500)%20without%20stitching." 
-                           target="_blank"
-                           class="flex justify-center items-center space-x-2 w-full text-center py-3 border-2 border-whatsapp text-whatsapp hover:bg-whatsapp hover:text-white text-[11px] font-bold tracking-[0.2em] uppercase transition-lux rounded-sm shadow-sm">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01c12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.07 1.1 11.478 1.1c-5.412 0-9.821 4.372-9.825 9.802-.002 1.81.475 3.578 1.38 5.161l-.973 3.548 3.639-.945z"/>
-                            </svg>
-                            <span>Order Unstitched</span>
-                        </a>
-                        <a href="https://wa.me/923208712508?text=Assalam-o-Alaikum!%20I%20want%20to%20order%20Ethereal%20Lawn%20Suite%20including%20Stitching%20(Total:%20Rs.7,000).%20Please%20guide%20me%20for%20measurements." 
-                           target="_blank"
-                           class="flex justify-center items-center space-x-2 w-full text-center py-3 bg-whatsapp text-white hover:opacity-95 text-[11px] font-bold tracking-[0.2em] uppercase transition-lux rounded-sm shadow-md">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01c12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.07 1.1 11.478 1.1c-5.412 0-9.821 4.372-9.825 9.802-.002 1.81.475 3.578 1.38 5.161l-.973 3.548 3.639-.945z"/>
-                            </svg>
-                            <span>Order With Stitching</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Luxury Product Card 2 -->
-            <div class="group flex flex-col luxury-card-shadow bg-white overflow-hidden border border-[#E3C28E]/10 hover:border-[#E3C28E]/40 transition-lux">
-                <div class="relative overflow-hidden bg-[#F4F0F5] h-[500px]">
-                    <img src="https://images.unsplash.com/photo-1610030468983-9b486b86d9a1?auto=format&fit=crop&q=80&w=600" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-all duration-700" 
-                         alt="Gilded Embroidered Collection"
-                         onerror="this.style.display='none'; this.parentNode.style.backgroundColor='#210C22'">
-                    <span class="absolute top-4 left-4 bg-[#210C22] text-[#E3C28E] text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">
-                        Most Demanded
-                    </span>
-                </div>
-                <div class="p-8 text-center flex-grow flex flex-col justify-between">
-                    <div>
-                        <h3 class="font-serif-luxury text-2xl tracking-[0.05em] text-[#210C22] font-semibold uppercase mb-2">Chiffon Formal</h3>
-                        <p class="text-[11px] text-[#502157] tracking-[0.2em] uppercase font-bold mb-4">Embroidered Silk Chiffon</p>
+                    <form onsubmit="handlePostSuitSubmit(event)" class="space-y-4 sm:space-y-5">
                         
-                        <!-- Transparent Pricing Structure (Serif Pricing for Luxury Feel) -->
-                        <div class="flex justify-center items-center space-x-6 py-3 border-y border-[#F4F0F5] my-4 bg-[#F4F0F5]/50">
-                            <div class="text-center">
-                                <span class="text-[10px] uppercase text-gray-400 block tracking-widest">Suit Price</span>
-                                <span class="text-lg font-serif-luxury font-bold text-[#2B2B2B]">Rs. 8,900</span>
+                        <!-- IMAGE UPLOAD AREA -->
+                        <div>
+                            <label class="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-brand-cream mb-2">
+                                1. Upload Suit Image * (JPG, PNG, WEBP)
+                            </label>
+
+                            <input type="file" id="suitImageFileInput" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
+                            
+                            <!-- Dropzone & Upload Button -->
+                            <div id="imageUploadDropzone" onclick="triggerFileInput()" class="border-2 border-dashed border-brand-gold/40 hover:border-brand-gold bg-brand-darkbrown/40 hover:bg-brand-darkbrown/80 rounded-2xl p-5 sm:p-6 text-center cursor-pointer transition-all active:scale-[0.99]">
+                                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-brand-gold/10 text-brand-gold rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3 border border-brand-gold/30 text-lg sm:text-xl">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                </div>
+                                <p class="text-xs sm:text-sm font-bold text-brand-ivory mb-1">Click to Browse Photo or Take Camera Picture</p>
+                                <p class="text-[10px] sm:text-[11px] text-brand-taupe">Supports high quality photos from Mobile or Computer.</p>
                             </div>
-                            <div class="h-8 w-[1px] bg-gray-200"></div>
-                            <div class="text-center">
-                                <span class="text-[10px] uppercase text-gray-400 block tracking-widest">Silai Rate</span>
-                                <span class="text-lg font-serif-luxury font-bold text-[#502157]">Rs. 2,000</span>
+
+                            <!-- Image Preview Area -->
+                            <div id="imagePreviewContainer" class="hidden mt-3 p-3 sm:p-4 bg-brand-charcoal border border-brand-gold/30 rounded-2xl">
+                                <div class="flex items-center gap-3 sm:gap-4">
+                                    <img id="imagePreviewElement" src="" alt="Suit Preview" class="w-20 h-24 sm:w-24 sm:h-28 object-cover rounded-xl border border-brand-gold/40 shadow-md">
+                                    <div class="flex-1 min-w-0">
+                                        <span class="text-[9px] sm:text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-600/40 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider inline-block mb-1">
+                                            Uploaded Successfully
+                                        </span>
+                                        <p id="imageFileName" class="text-xs font-bold text-brand-ivory truncate">suit-photo.jpg</p>
+                                        <div class="flex items-center gap-2 mt-2 sm:mt-3">
+                                            <button type="button" onclick="triggerFileInput()" class="px-2.5 py-1.5 bg-brand-darkbrown text-brand-gold border border-brand-gold/30 hover:bg-brand-gold hover:text-brand-charcoal rounded-lg text-[11px] font-bold transition-all">
+                                                <i class="fa-solid fa-arrows-rotate mr-1"></i> Change
+                                            </button>
+                                            <button type="button" onclick="removeUploadedImage()" class="px-2.5 py-1.5 bg-stone-800 text-rose-300 border border-rose-800 hover:bg-stone-700 rounded-lg text-[11px] font-bold transition-all">
+                                                <i class="fa-solid fa-trash mr-1"></i> Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Direct Smart Order Buttons (Clean Sans-Serif font on Buttons with WhatsApp official brand color) -->
-                    <div class="mt-6 space-y-3 font-sans-premium">
-                        <a href="https://wa.me/923208712508?text=Assalam-o-Alaikum!%20I%20want%20to%20order%20Chiffon%20Formal%20Suite%20(Price:%20Rs.8,900)%20without%20stitching." 
-                           target="_blank"
-                           class="flex justify-center items-center space-x-2 w-full text-center py-3 border-2 border-whatsapp text-whatsapp hover:bg-whatsapp hover:text-white text-[11px] font-bold tracking-[0.2em] uppercase transition-lux rounded-sm shadow-sm">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01c12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.07 1.1 11.478 1.1c-5.412 0-9.821 4.372-9.825 9.802-.002 1.81.475 3.578 1.38 5.161l-.973 3.548 3.639-.945z"/>
-                            </svg>
-                            <span>Order Unstitched</span>
-                        </a>
-                        <a href="https://wa.me/923208712508?text=Assalam-o-Alaikum!%20I%20want%20to%20order%20Chiffon%20Formal%20Suite%20including%20Stitching%20(Total:%20Rs.10,900).%20Please%20guide%20me%20for%20measurements." 
-                           target="_blank"
-                           class="flex justify-center items-center space-x-2 w-full text-center py-3 bg-whatsapp text-white hover:opacity-95 text-[11px] font-bold tracking-[0.2em] uppercase transition-lux rounded-sm shadow-md">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01c12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.07 1.1 11.478 1.1c-5.412 0-9.821 4.372-9.825 9.802-.002 1.81.475 3.578 1.38 5.161l-.973 3.548 3.639-.945z"/>
-                            </svg>
-                            <span>Order With Stitching</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Luxury Product Card 3 -->
-            <div class="group flex flex-col luxury-card-shadow bg-white overflow-hidden border border-[#E3C28E]/10 hover:border-[#E3C28E]/40 transition-lux">
-                <div class="relative overflow-hidden bg-[#F4F0F5] h-[500px]">
-                    <img src="https://images.unsplash.com/photo-1596783307338-706f34585ec8?auto=format&fit=crop&q=80&w=600" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-all duration-700" 
-                         alt="Velvet Rose Premium Edition"
-                         onerror="this.style.display='none'; this.parentNode.style.backgroundColor='#210C22'">
-                    <span class="absolute top-4 left-4 bg-[#E3C28E] text-[#210C22] text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-1.5">
-                        Festive Wear
-                    </span>
-                </div>
-                <div class="p-8 text-center flex-grow flex flex-col justify-between">
-                    <div>
-                        <h3 class="font-serif-luxury text-2xl tracking-[0.05em] text-[#210C22] font-semibold uppercase mb-2">Summer Embroidered</h3>
-                        <p class="text-[11px] text-[#502157] tracking-[0.2em] uppercase font-bold mb-4">Premium Lawn Silk Edition</p>
-                        
-                        <!-- Transparent Pricing Structure (Serif Pricing for Luxury Feel) -->
-                        <div class="flex justify-center items-center space-x-6 py-3 border-y border-[#F4F0F5] my-4 bg-[#F4F0F5]/50">
-                            <div class="text-center">
-                                <span class="text-[10px] uppercase text-gray-400 block tracking-widest">Suit Price</span>
-                                <span class="text-lg font-serif-luxury font-bold text-[#2B2B2B]">Rs. 4,200</span>
+                        <!-- Suit Title -->
+                        <div>
+                            <label class="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-brand-cream mb-1">2. Suit Name / Title *</label>
+                            <input type="text" id="postName" required placeholder="e.g. Zardosi Velvet Embroidered 3-Piece Suit" class="w-full px-3.5 py-2.5 sm:py-3 bg-brand-charcoal border border-brand-gold/30 rounded-xl text-xs sm:text-sm text-brand-ivory focus:outline-none focus:border-brand-gold placeholder-brand-taupe/50">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                            <div>
+                                <label class="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-brand-cream mb-1">3. Price (PKR) *</label>
+                                <input type="number" id="postPrice" required placeholder="8990" class="w-full px-3.5 py-2.5 sm:py-3 bg-brand-charcoal border border-brand-gold/30 rounded-xl text-xs sm:text-sm text-brand-ivory focus:outline-none focus:border-brand-gold placeholder-brand-taupe/50">
                             </div>
-                            <div class="h-8 w-[1px] bg-gray-200"></div>
-                            <div class="text-center">
-                                <span class="text-[10px] uppercase text-gray-400 block tracking-widest">Silai Rate</span>
-                                <span class="text-lg font-serif-luxury font-bold text-[#502157]">Rs. 1,200</span>
+                            <div>
+                                <label class="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-brand-cream mb-1">Discount Price (Optional)</label>
+                                <input type="number" id="postComparePrice" placeholder="11500" class="w-full px-3.5 py-2.5 sm:py-3 bg-brand-charcoal border border-brand-gold/30 rounded-xl text-xs sm:text-sm text-brand-ivory focus:outline-none focus:border-brand-gold placeholder-brand-taupe/50">
                             </div>
                         </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                            <div>
+                                <label class="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-brand-cream mb-1">4. Select Category *</label>
+                                <select id="postCategory" required class="w-full px-3.5 py-2.5 sm:py-3 bg-brand-charcoal border border-brand-gold/30 rounded-xl text-xs sm:text-sm text-brand-ivory focus:outline-none focus:border-brand-gold">
+                                    <option value="three-piece">Three Piece Suit</option>
+                                    <option value="two-piece">Two Piece Suit</option>
+                                    <option value="fancy-suits">Fancy Formal Suit</option>
+                                    <option value="lawn">Embroidered Lawn</option>
+                                    <option value="velvet">Velvet & Winter</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-brand-cream mb-1">Fabric Type *</label>
+                                <input type="text" id="postFabric" required placeholder="e.g. Pure Chiffon Shirt with Silk Dupatta" class="w-full px-3.5 py-2.5 sm:py-3 bg-brand-charcoal border border-brand-gold/30 rounded-xl text-xs sm:text-sm text-brand-ivory focus:outline-none focus:border-brand-gold placeholder-brand-taupe/50">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-brand-cream mb-1">Suit Description</label>
+                            <textarea id="postDescription" rows="3" placeholder="Describe threadwork, embellishments, daman embroidery, and dupatta details..." class="w-full px-3.5 py-2.5 sm:py-3 bg-brand-charcoal border border-brand-gold/30 rounded-xl text-xs sm:text-sm text-brand-ivory focus:outline-none focus:border-brand-gold placeholder-brand-taupe/50"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 sm:py-4 bg-brand-gold text-brand-charcoal font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-xl hover:bg-brand-cream transition-all flex items-center justify-center gap-2 active:scale-95">
+                            <i class="fa-solid fa-paper-plane"></i> Publish Suit To Live Store
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right Column: Live Posted Suits List -->
+                <div class="lg:col-span-5 bg-brand-darkbrown/30 border border-brand-gold/20 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl">
+                    <div class="flex items-center justify-between pb-3 sm:pb-4 border-b border-brand-gold/20 mb-4">
+                        <h3 class="font-serif font-bold text-base sm:text-lg text-brand-ivory">Posted Suits Catalog</h3>
+                        <span id="adminSuitsCount" class="text-[10px] sm:text-xs bg-brand-gold text-brand-charcoal px-2.5 py-1 rounded-full font-bold">0 Suits</span>
                     </div>
-                    
-                    <!-- Direct Smart Order Buttons (Clean Sans-Serif font on Buttons with WhatsApp official brand color) -->
-                    <div class="mt-6 space-y-3 font-sans-premium">
-                        <a href="https://wa.me/923208712508?text=Assalam-o-Alaikum!%20I%20want%20to%20order%20Summer%20Embroidered%20Suite%20(Price:%20Rs.4,200)%20without%20stitching." 
-                           target="_blank"
-                           class="flex justify-center items-center space-x-2 w-full text-center py-3 border-2 border-whatsapp text-whatsapp hover:bg-whatsapp hover:text-white text-[11px] font-bold tracking-[0.2em] uppercase transition-lux rounded-sm shadow-sm">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01c12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.07 1.1 11.478 1.1c-5.412 0-9.821 4.372-9.825 9.802-.002 1.81.475 3.578 1.38 5.161l-.973 3.548 3.639-.945z"/>
-                            </svg>
-                            <span>Order Unstitched</span>
-                        </a>
-                        <a href="https://wa.me/923208712508?text=Assalam-o-Alaikum!%20I%20want%20to%20order%20Summer%20Embroidered%20Suite%20including%20Stitching%20(Total:%20Rs.5,400).%20Please%20guide%20me%20for%20measurements." 
-                           target="_blank"
-                           class="flex justify-center items-center space-x-2 w-full text-center py-3 bg-whatsapp text-white hover:opacity-95 text-[11px] font-bold tracking-[0.2em] uppercase transition-lux rounded-sm shadow-md">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01c12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.07 1.1 11.478 1.1c-5.412 0-9.821 4.372-9.825 9.802-.002 1.81.475 3.578 1.38 5.161l-.973 3.548 3.639-.945z"/>
-                            </svg>
-                            <span>Order With Stitching</span>
-                        </a>
+
+                    <div id="adminProductsList" class="space-y-3 max-h-[500px] sm:max-h-[600px] overflow-y-auto pr-1">
+                        <!-- Admin suit items rendered via JS -->
                     </div>
                 </div>
             </div>
+        </section>
+    </main>
 
-        </div>
-    </section>
-
-    <!-- Custom Stitching Process / Information Section -->
-    <section id="stitching-info" class="bg-[#F4F0F5] border-t border-[#E3C28E]/20 py-20 px-6">
-        <div class="max-w-4xl mx-auto text-center">
-            <span class="text-[#502157] text-[11px] font-bold tracking-[0.4em] uppercase block mb-3">Our Signature Service</span>
-            <h2 class="font-serif-luxury text-3xl md:text-5xl font-bold tracking-wider text-[#210C22] uppercase mb-8">Bespoke Fitting & Stitching</h2>
-            <div class="h-[1px] w-24 bg-[#E3C28E] mx-auto mb-10"></div>
-            
-            <p class="text-[#2B2B2B]/80 text-sm tracking-wide leading-relaxed max-w-2xl mx-auto mb-12">
-                Ayesha's Boutique is known for perfect custom fitting. Once you place an order, our expert tailors will consult with you on WhatsApp regarding sizing, styling designs, necklines, and sleeve patterns.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 border border-[#E3C28E]/20">
-                    <div class="text-3xl font-serif-luxury text-[#E3C28E] mb-3">01</div>
-                    <h4 class="font-sans-premium font-bold uppercase text-[12px] tracking-widest text-[#210C22] mb-2">Provide Sizes</h4>
-                    <p class="text-xs text-gray-500 leading-relaxed">Share custom measurements or select from standard XS-XL size chart on WhatsApp.</p>
-                </div>
-                <div class="bg-white p-8 border border-[#E3C28E]/20">
-                    <div class="text-3xl font-serif-luxury text-[#E3C28E] mb-3">02</div>
-                    <h4 class="font-sans-premium font-bold uppercase text-[12px] tracking-widest text-[#210C22] mb-2">Choose Design</h4>
-                    <p class="text-xs text-gray-500 leading-relaxed">Customize necklines, laces, lining (astar), tassels, or share custom design inspiration images.</p>
-                </div>
-                <div class="bg-white p-8 border border-[#E3C28E]/20">
-                    <div class="text-3xl font-serif-luxury text-[#E3C28E] mb-3">03</div>
-                    <h4 class="font-sans-premium font-bold uppercase text-[12px] tracking-widest text-[#210C22] mb-2">Swift Stitching</h4>
-                    <p class="text-xs text-gray-500 leading-relaxed">Our in-house expert tailors complete the stitching within 5-7 working days perfectly.</p>
-                </div>
+    <footer class="bg-brand-darkbrown border-t border-brand-gold/20 pt-8 sm:pt-12 pb-6 sm:pb-8 text-brand-taupe text-xs">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 pb-6 sm:pb-8 border-b border-brand-gold/10">
+            <div>
+                <h3 class="font-serif font-bold text-lg sm:text-xl gold-gradient-text uppercase tracking-widest mb-2 sm:mb-3">AYESHA BOUTIQUE</h3>
+                <p class="leading-relaxed text-[11px] sm:text-xs text-brand-beige/80">Your premier destination for luxury Pakistani designer suits, handcrafted pret, and bespoke wedding formals.</p>
+            </div>
+            <div>
+                <h4 class="font-serif font-bold text-brand-cream text-xs sm:text-sm mb-3 sm:mb-4 tracking-wider uppercase">Direct Contact</h4>
+                <p class="mb-2 text-[11px] sm:text-xs text-brand-beige"><i class="fa-brands fa-whatsapp text-emerald-400 mr-2 text-sm"></i> +92 320 8712508</p>
+                <p class="text-[11px] sm:text-xs text-brand-beige"><i class="fa-solid fa-location-dot text-brand-gold mr-2 text-sm"></i> Pakistan</p>
+            </div>
+            <div>
+                <h4 class="font-serif font-bold text-brand-cream text-xs sm:text-sm mb-3 sm:mb-4 tracking-wider uppercase">Owner Authorization</h4>
+                <p class="mb-3 text-[11px] sm:text-xs text-brand-beige/80">Only authorized boutique owners can manage catalog using secret PIN.</p>
+                <button onclick="switchView('admin')" class="px-4 py-2 bg-brand-charcoal text-brand-gold border border-brand-gold/30 rounded-xl font-bold text-[11px] sm:text-xs hover:bg-brand-gold hover:text-brand-charcoal transition-all active:scale-95">
+                    <i class="fa-solid fa-lock mr-1.5"></i> Access Admin Panel
+                </button>
             </div>
         </div>
-    </section>
-
-    <!-- Deep Plum Luxury Footer with Pale Gold Highlights -->
-    <footer id="footer" class="bg-[#210C22] text-[#FFFFFF] py-16 px-12 border-t border-[#E3C28E]/30">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
-            <div class="space-y-4">
-                <h3 class="font-serif-luxury text-2xl tracking-widest text-[#FFFFFF]">AYESHA'S <span class="text-[#E3C28E]">BOUTIQUE</span></h3>
-                <p class="text-xs text-[#E3C28E] tracking-widest uppercase">Luxury Unstitched Pakistani Wear curated dynamically.</p>
-            </div>
-            <div class="space-y-4">
-                <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-[#E3C28E]">Quick Contacts</h4>
-                <p class="text-sm tracking-widest font-light">Call/WhatsApp: +92 320 8712508</p>
-                <p class="text-sm tracking-widest font-light">Location: Pakistan</p>
-            </div>
-            <div class="space-y-4">
-                <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-[#E3C28E]">Design Integrity</h4>
-                <p class="text-xs text-gray-400 tracking-wider leading-relaxed">
-                    All dresses are premium quality fabric replication inspired by contemporary designers. Custom design patterns are available upon request.
-                </p>
-            </div>
-        </div>
-        <div class="h-[1px] w-full bg-[#E3C28E]/20 my-10"></div>
-        <div class="text-center text-[11px] tracking-widest text-gray-400 uppercase">
-            &copy; 2026 Ayesha's Boutique. All Rights Reserved. Powered by GitHub Pages.
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-4 sm:pt-6 flex flex-col sm:flex-row items-center justify-between text-[10px] sm:text-[11px] text-brand-taupe/80 gap-2">
+            <p>© 2026 AYESHA BOUTIQUE. All Rights Reserved.</p>
+            <p>Designed for Authentic Pakistani Fashion</p>
         </div>
     </footer>
 
+
+    <!-- ================= MODALS & DRAWERS ================= -->
+
+    <!-- Size Guide Modal -->
+    <div id="sizeGuideModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-4 bg-brand-charcoal/80 backdrop-blur-sm">
+        <div class="bg-brand-darkbrown border border-brand-gold/40 w-full max-w-lg rounded-2xl sm:rounded-3xl p-5 sm:p-6 relative shadow-2xl">
+            <button onclick="closeSizeGuideModal()" class="absolute top-4 right-4 text-brand-taupe hover:text-white p-1">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="font-serif font-bold text-lg sm:text-xl text-brand-ivory mb-1 gold-gradient-text">Standard Pakistani Suit Size Chart</h3>
+            <p class="text-[11px] sm:text-xs text-brand-taupe mb-4">Measurements given in inches for ready-to-wear stitched suits.</p>
+            
+            <div class="overflow-x-auto -mx-1">
+                <table class="w-full text-xs text-left border-collapse">
+                    <thead>
+                        <tr class="bg-brand-charcoal text-brand-gold border-b border-brand-gold/20">
+                            <th class="p-2 sm:p-2.5">Size</th>
+                            <th class="p-2 sm:p-2.5">Chest</th>
+                            <th class="p-2 sm:p-2.5">Waist</th>
+                            <th class="p-2 sm:p-2.5">Hips</th>
+                            <th class="p-2 sm:p-2.5">Length</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-brand-gold/10 text-brand-beige">
+                        <tr><td class="p-2 sm:p-2.5 font-bold text-brand-ivory">Small (S)</td><td class="p-2 sm:p-2.5">36"</td><td class="p-2 sm:p-2.5">32"</td><td class="p-2 sm:p-2.5">39"</td><td class="p-2 sm:p-2.5">42"</td></tr>
+                        <tr><td class="p-2 sm:p-2.5 font-bold text-brand-ivory">Medium (M)</td><td class="p-2 sm:p-2.5">40"</td><td class="p-2 sm:p-2.5">36"</td><td class="p-2 sm:p-2.5">43"</td><td class="p-2 sm:p-2.5">44"</td></tr>
+                        <tr><td class="p-2 sm:p-2.5 font-bold text-brand-ivory">Large (L)</td><td class="p-2 sm:p-2.5">44"</td><td class="p-2 sm:p-2.5">40"</td><td class="p-2 sm:p-2.5">47"</td><td class="p-2 sm:p-2.5">46"</td></tr>
+                        <tr><td class="p-2 sm:p-2.5 font-bold text-brand-ivory">X-Large (XL)</td><td class="p-2 sm:p-2.5">48"</td><td class="p-2 sm:p-2.5">44"</td><td class="p-2 sm:p-2.5">51"</td><td class="p-2 sm:p-2.5">46"</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin PIN Authentication Modal -->
+    <div id="adminPinModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-4 bg-black/90 backdrop-blur-md">
+        <div class="bg-brand-darkbrown border border-brand-gold/40 w-full max-w-sm rounded-2xl sm:rounded-3xl p-5 sm:p-6 text-center shadow-2xl relative">
+            <button onclick="closeAdminPinModal()" class="absolute top-4 right-4 text-brand-taupe hover:text-white p-1">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="w-12 h-12 sm:w-14 sm:h-14 bg-brand-charcoal text-brand-gold rounded-full flex items-center justify-center mx-auto mb-3 text-xl sm:text-2xl border border-brand-gold/30 shadow-inner">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3 class="font-serif font-bold text-lg sm:text-xl text-brand-ivory mb-1">Owner Authentication</h3>
+            <p class="text-[11px] sm:text-xs text-brand-taupe mb-4 sm:mb-5">Enter secret Admin PIN code to manage suits catalog.</p>
+            
+            <form onsubmit="verifyAdminPin(event)" class="space-y-4">
+                <input type="password" id="adminPinInput" placeholder="Enter PIN" maxlength="10" required class="w-full text-center tracking-[0.3em] font-bold py-3 text-lg bg-brand-charcoal border border-brand-gold/40 rounded-xl text-brand-ivory focus:ring-2 focus:ring-brand-gold outline-none">
+                <p id="adminPinError" class="text-xs text-rose-400 font-bold hidden">Incorrect PIN Code! Please try again.</p>
+                <button type="submit" class="w-full py-3 bg-brand-gold text-brand-charcoal rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-brand-cream transition-all shadow-md active:scale-95">
+                    Unlock Admin Access
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Quick View Product Modal -->
+    <div id="quickViewModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-4 bg-brand-charcoal/85 backdrop-blur-sm">
+        <div class="bg-brand-darkbrown border border-brand-gold/30 w-full max-w-2xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 relative shadow-2xl max-h-[90dvh] overflow-y-auto">
+            <button onclick="closeQuickViewModal()" class="absolute top-3 right-3 sm:top-4 sm:right-4 text-brand-taupe hover:text-white z-10 bg-brand-charcoal/90 border border-brand-gold/30 rounded-full w-8 h-8 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-xs sm:text-sm"></i>
+            </button>
+            <div id="quickViewContent">
+                <!-- Content populated dynamically via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Bag Cart Drawer -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="toggleCartDrawer()"></div>
+        <div class="absolute top-0 right-0 bottom-0 w-[88vw] sm:w-[420px] max-w-full bg-brand-charcoal border-l border-brand-gold/20 p-4 sm:p-6 flex flex-col justify-between shadow-2xl safe-pb">
+            <div>
+                <div class="flex items-center justify-between pb-4 border-b border-brand-gold/20">
+                    <h3 class="font-serif font-bold text-base sm:text-lg text-brand-ivory flex items-center gap-2">
+                        <i class="fa-solid fa-bag-shopping text-brand-gold"></i> Your Shopping Bag
+                    </h3>
+                    <button onclick="toggleCartDrawer()" class="text-brand-taupe hover:text-white p-1">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <div id="cartItemsContainer" class="mt-4 space-y-3 sm:space-y-4 max-h-[55vh] overflow-y-auto pr-1">
+                    <!-- Cart items rendered via JS -->
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-brand-gold/20">
+                <div class="flex items-center justify-between mb-4 text-xs sm:text-sm font-bold">
+                    <span class="text-brand-beige">Total Amount:</span>
+                    <span id="cartSubtotal" class="text-base sm:text-lg gold-gradient-text">PKR 0</span>
+                </div>
+
+                <button onclick="checkoutToWhatsApp()" class="w-full py-3.5 sm:py-4 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-xl transition-all flex items-center justify-center gap-2 active:scale-95">
+                    <i class="fa-brands fa-whatsapp text-base sm:text-lg"></i> Order via WhatsApp Now
+                </button>
+                <p class="text-[9px] sm:text-[10px] text-center text-brand-taupe/80 mt-2">
+                    Redirects to official WhatsApp (+92 320 8712508) with complete order details.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= JAVASCRIPT APP LOGIC ================= -->
+    <script>
+        let productsList = [];
+        let shoppingCart = [];
+        let activeCategoryFilter = 'all';
+        let currentUploadedImageBase64 = null;
+        let selectedQuickViewSize = 'Medium';
+        let isAdminAuthenticated = false;
+
+        window.onload = function() {
+            loadAllProducts();
+            loadCart();
+            renderCategoryPills();
+            renderProducts();
+            renderAdminProductsList();
+            setupDropzone();
+        };
+
+        function switchView(viewName) {
+            const shopView = document.getElementById('shopView');
+            const adminView = document.getElementById('adminView');
+            const navShopBtn = document.getElementById('navShopBtn');
+            const navAdminBtn = document.getElementById('navAdminBtn');
+
+            if (viewName === 'shop') {
+                shopView.classList.remove('hidden');
+                adminView.classList.add('hidden');
+                if (navShopBtn) navShopBtn.className = "text-brand-gold border-b-2 border-brand-gold pb-1 transition-all";
+                if (navAdminBtn) navAdminBtn.className = "bg-brand-gold text-brand-charcoal px-4 py-2 rounded-full font-bold text-xs uppercase tracking-wider hover:bg-brand-cream transition-all shadow-md flex items-center gap-1.5 active:scale-95";
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (viewName === 'admin') {
+                if (!isAdminAuthenticated) {
+                    openAdminPinModal();
+                    return;
+                }
+                shopView.classList.add('hidden');
+                adminView.classList.remove('hidden');
+                if (navAdminBtn) navAdminBtn.className = "text-brand-gold border-b-2 border-brand-gold pb-1 transition-all";
+                if (navShopBtn) navShopBtn.className = "hover:text-brand-gold transition-all";
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function openAdminPinModal() {
+            document.getElementById('adminPinInput').value = '';
+            document.getElementById('adminPinError').classList.add('hidden');
+            document.getElementById('adminPinModal').classList.remove('hidden');
+            setTimeout(() => document.getElementById('adminPinInput').focus(), 150);
+        }
+
+        function closeAdminPinModal() {
+            document.getElementById('adminPinModal').classList.add('hidden');
+        }
+
+        function verifyAdminPin(e) {
+            e.preventDefault();
+            const enteredPin = document.getElementById('adminPinInput').value.trim();
+            if (enteredPin === ADMIN_SECRET_PIN) {
+                isAdminAuthenticated = true;
+                closeAdminPinModal();
+                showToast("Admin Access Granted!", "success");
+                switchView('admin');
+            } else {
+                document.getElementById('adminPinError').classList.remove('hidden');
+            }
+        }
+
+        function lockAdminAccess() {
+            isAdminAuthenticated = false;
+            switchView('shop');
+            showToast("Admin Panel Locked", "info");
+        }
+
+        function loadAllProducts() {
+            const savedCustom = localStorage.getItem('ayesha_boutique_suits');
+            if (savedCustom) {
+                try {
+                    productsList = JSON.parse(savedCustom);
+                } catch(e) {
+                    productsList = [];
+                }
+            } else {
+                productsList = [...INITIAL_PRODUCTS];
+            }
+        }
+
+        function saveProductsToStorage() {
+            localStorage.setItem('ayesha_boutique_suits', JSON.stringify(productsList));
+        }
+
+        function renderCategoryPills() {
+            const categories = [
+                { id: 'all', label: 'All Suits' },
+                { id: 'three-piece', label: 'Three Piece' },
+                { id: 'two-piece', label: 'Two Piece' },
+                { id: 'fancy-suits', label: 'Fancy Formal' },
+                { id: 'lawn', label: 'Lawn Suits' },
+                { id: 'velvet', label: 'Velvet / Winter' }
+            ];
+
+            const container = document.getElementById('categoryPillsContainer');
+            if (!container) return;
+            
+            container.innerHTML = categories.map(cat => `
+                <button onclick="filterCategory('${cat.id}')" class="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all border shrink-0 active:scale-95 ${
+                    activeCategoryFilter === cat.id 
+                    ? 'bg-brand-gold text-brand-charcoal border-brand-gold shadow-md' 
+                    : 'bg-brand-darkbrown/40 text-brand-beige border-brand-gold/20 hover:border-brand-gold/50 hover:text-white'
+                }">
+                    ${cat.label}
+                </button>
+            `).join('');
+        }
+
+        function filterCategory(catId) {
+            activeCategoryFilter = catId;
+            renderCategoryPills();
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const emptyState = document.getElementById('emptyCatalogState');
+            const countBadge = document.getElementById('productCountBadge');
+
+            if (!grid) return;
+
+            let filtered = productsList;
+            if (activeCategoryFilter !== 'all') {
+                filtered = productsList.filter(p => p.category === activeCategoryFilter);
+            }
+
+            if (countBadge) countBadge.innerText = `${filtered.length} Items`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                if (emptyState) emptyState.classList.remove('hidden');
+                return;
+            }
+
+            if (emptyState) emptyState.classList.add('hidden');
+
+            grid.innerHTML = filtered.map(p => `
+                <div class="bg-brand-darkbrown/40 border border-brand-gold/20 rounded-2xl overflow-hidden hover:border-brand-gold/50 transition-all group flex flex-col justify-between shadow-lg">
+                    <div>
+                        <div class="relative overflow-hidden aspect-[3/4] bg-brand-charcoal">
+                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x800/171717/B8955A?text=Suit+Photo'">
+                            <span class="absolute top-2.5 left-2.5 bg-brand-charcoal/90 border border-brand-gold/30 text-brand-gold text-[9px] sm:text-[10px] font-bold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full uppercase tracking-wider backdrop-blur-sm">
+                                ${p.category.replace('-', ' ')}
+                            </span>
+                        </div>
+                        <div class="p-3.5 sm:p-4">
+                            <h4 class="font-serif font-bold text-brand-ivory text-sm sm:text-base line-clamp-1 mb-1">${p.name}</h4>
+                            <p class="text-[11px] sm:text-xs text-brand-taupe mb-2.5 sm:mb-3 line-clamp-1">${p.fabric || 'Stitched Luxury Pret'}</p>
+                            
+                            <div class="flex items-baseline gap-2 mb-2.5 sm:mb-3">
+                                <span class="font-serif font-bold text-base sm:text-lg gold-gradient-text">${STORE_CONFIG.currencySymbol}${Number(p.price).toLocaleString()}</span>
+                                ${p.comparePrice ? `<span class="text-[11px] sm:text-xs text-brand-taupe/60 line-through">${STORE_CONFIG.currencySymbol}${Number(p.comparePrice).toLocaleString()}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3.5 sm:p-4 pt-0 grid grid-cols-2 gap-2">
+                        <button onclick="openQuickView('${p.id}')" class="py-2 sm:py-2.5 border border-brand-gold/30 text-brand-gold hover:bg-brand-gold hover:text-brand-charcoal rounded-xl text-[11px] sm:text-xs font-bold transition-all active:scale-95">
+                            Details
+                        </button>
+                        <button onclick="addToCart('${p.id}')" class="py-2 sm:py-2.5 bg-brand-gold text-brand-charcoal font-bold rounded-xl text-[11px] sm:text-xs uppercase tracking-wider hover:bg-brand-cream transition-all active:scale-95">
+                            Add To Bag
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setupDropzone() {
+            const dropzone = document.getElementById('imageUploadDropzone');
+            if (!dropzone) return;
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropzone.addEventListener(eventName, () => dropzone.classList.add('border-brand-gold', 'bg-brand-darkbrown/80'), false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, () => dropzone.classList.remove('border-brand-gold', 'bg-brand-darkbrown/80'), false);
+            });
+
+            dropzone.addEventListener('drop', (e) => {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                if (files && files.length > 0) {
+                    processUploadedFile(files[0]);
+                }
+            }, false);
+        }
+
+        function triggerFileInput() {
+            const fileInput = document.getElementById('suitImageFileInput');
+            if (fileInput) fileInput.click();
+        }
+
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            if (files && files.length > 0) {
+                processUploadedFile(files[0]);
+            }
+        }
+
+        function processUploadedFile(file) {
+            if (!file.type.match('image.*')) {
+                showToast("Please upload an image file (JPG, PNG, WEBP)", "error");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentUploadedImageBase64 = e.target.result;
+                document.getElementById('imagePreviewElement').src = currentUploadedImageBase64;
+                document.getElementById('imageFileName').innerText = file.name;
+                document.getElementById('imagePreviewContainer').classList.remove('hidden');
+                document.getElementById('imageUploadDropzone').classList.add('hidden');
+                showToast("Image selected successfully!", "success");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeUploadedImage() {
+            currentUploadedImageBase64 = null;
+            document.getElementById('imagePreviewElement').src = '';
+            document.getElementById('suitImageFileInput').value = '';
+            document.getElementById('imagePreviewContainer').classList.add('hidden');
+            document.getElementById('imageUploadDropzone').classList.remove('hidden');
+        }
+
+        function handlePostSuitSubmit(e) {
+            e.preventDefault();
+
+            if (!currentUploadedImageBase64) {
+                showToast("Please upload a suit photo first!", "error");
+                return;
+            }
+
+            const name = document.getElementById('postName').value.trim();
+            const price = Number(document.getElementById('postPrice').value);
+            const comparePrice = document.getElementById('postComparePrice').value ? Number(document.getElementById('postComparePrice').value) : null;
+            const category = document.getElementById('postCategory').value;
+            const fabric = document.getElementById('postFabric').value.trim();
+            const description = document.getElementById('postDescription').value.trim();
+
+            const newSuit = {
+                id: 'SUIT_' + Date.now(),
+                name,
+                price,
+                comparePrice,
+                category,
+                fabric,
+                description,
+                image: currentUploadedImageBase64,
+                createdAt: new Date().toISOString()
+            };
+
+            productsList.unshift(newSuit);
+            saveProductsToStorage();
+
+            e.target.reset();
+            removeUploadedImage();
+
+            renderProducts();
+            renderAdminProductsList();
+
+            showToast("New Suit Posted Successfully!", "success");
+            switchView('shop');
+        }
+
+        function renderAdminProductsList() {
+            const container = document.getElementById('adminProductsList');
+            const countElem = document.getElementById('adminSuitsCount');
+
+            if (!container) return;
+            if (countElem) countElem.innerText = `${productsList.length} Suits`;
+
+            if (productsList.length === 0) {
+                container.innerHTML = `<p class="text-xs text-brand-taupe/80 text-center py-6">No suits posted yet.</p>`;
+                return;
+            }
+
+            container.innerHTML = productsList.map(p => `
+                <div class="p-2.5 sm:p-3 bg-brand-charcoal/80 border border-brand-gold/20 rounded-xl sm:rounded-2xl flex items-center justify-between gap-2.5 sm:gap-3">
+                    <img src="${p.image}" class="w-10 h-12 sm:w-12 sm:h-14 object-cover rounded-lg border border-brand-gold/30 shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <h5 class="text-xs font-bold text-brand-ivory truncate">${p.name}</h5>
+                        <p class="text-[10px] text-brand-gold">${STORE_CONFIG.currencySymbol}${Number(p.price).toLocaleString()}</p>
+                    </div>
+                    <button onclick="deleteSuit('${p.id}')" class="text-rose-400 hover:text-rose-300 p-2 text-xs active:scale-95 shrink-0" title="Delete Suit">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function deleteSuit(suitId) {
+            if (confirm("Are you sure you want to delete this suit from website?")) {
+                productsList = productsList.filter(p => p.id !== suitId);
+                saveProductsToStorage();
+                renderProducts();
+                renderAdminProductsList();
+                showToast("Suit deleted successfully", "info");
+            }
+        }
+
+        function addToCart(suitId, size = 'Medium') {
+            const product = productsList.find(p => p.id === suitId);
+            if (!product) return;
+
+            const existingIndex = shoppingCart.findIndex(item => item.id === suitId && item.size === size);
+            if (existingIndex > -1) {
+                shoppingCart[existingIndex].qty += 1;
+            } else {
+                shoppingCart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    size: size,
+                    qty: 1
+                });
+            }
+
+            updateCart();
+            showToast("Suit added to Shopping Bag!", "success");
+        }
+
+        function updateCart() {
+            localStorage.setItem('ayesha_cart', JSON.stringify(shoppingCart));
+            renderCart();
+        }
+
+        function loadCart() {
+            const saved = localStorage.getItem('ayesha_cart');
+            if (saved) {
+                try { shoppingCart = JSON.parse(saved); } catch(e) { shoppingCart = []; }
+            }
+            renderCart();
+        }
+
+        function renderCart() {
+            const badge = document.getElementById('cartBadge');
+            const container = document.getElementById('cartItemsContainer');
+            const subtotalElem = document.getElementById('cartSubtotal');
+
+            const totalCount = shoppingCart.reduce((sum, item) => sum + item.qty, 0);
+            if (badge) badge.innerText = totalCount;
+
+            if (!container) return;
+
+            if (shoppingCart.length === 0) {
+                container.innerHTML = `<p class="text-xs text-brand-taupe/80 text-center py-8">Your bag is currently empty.</p>`;
+                if (subtotalElem) subtotalElem.innerText = `${STORE_CONFIG.currencySymbol}0`;
+                return;
+            }
+
+            let total = 0;
+            container.innerHTML = shoppingCart.map((item, idx) => {
+                total += item.price * item.qty;
+                return `
+                    <div class="flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 bg-brand-darkbrown/40 border border-brand-gold/20 rounded-xl">
+                        <img src="${item.image}" class="w-10 h-12 sm:w-12 sm:h-14 object-cover rounded-lg border border-brand-gold/30 shrink-0">
+                        <div class="flex-1 min-w-0">
+                            <h5 class="text-xs font-bold text-brand-ivory truncate">${item.name}</h5>
+                            <p class="text-[10px] text-brand-taupe">Size: ${item.size} | Qty: ${item.qty}</p>
+                            <p class="text-xs font-bold text-brand-gold">${STORE_CONFIG.currencySymbol}${Number(item.price * item.qty).toLocaleString()}</p>
+                        </div>
+                        <button onclick="removeFromCart(${idx})" class="text-rose-400 p-1 text-xs shrink-0 active:scale-95"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                `;
+            }).join('');
+
+            if (subtotalElem) subtotalElem.innerText = `${STORE_CONFIG.currencySymbol}${Number(total).toLocaleString()}`;
+        }
+
+        function removeFromCart(index) {
+            shoppingCart.splice(index, 1);
+            updateCart();
+        }
+
+        function toggleCartDrawer() {
+            document.getElementById('cartDrawer').classList.toggle('hidden');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenuModal').classList.toggle('hidden');
+        }
+
+        function checkoutToWhatsApp() {
+            if (shoppingCart.length === 0) {
+                showToast("Your bag is empty!", "error");
+                return;
+            }
+
+            let message = `*NEW SUIT ORDER - ${STORE_CONFIG.name}*\n\n`;
+            let total = 0;
+
+            shoppingCart.forEach((item, i) => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+                message += `${i + 1}. *${item.name}*\n   Size: ${item.size}\n   Qty: ${item.qty}\n   Price: PKR ${itemTotal.toLocaleString()}\n\n`;
+            });
+
+            message += `*Total Amount:* PKR ${total.toLocaleString()}\n`;
+            message += `*Delivery Location:* Pakistan\n\nPlease confirm availability and payment details. Thank you!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodedMessage}`, '_blank');
+        }
+
+        function openQuickView(suitId) {
+            const product = productsList.find(p => p.id === suitId);
+            if (!product) return;
+
+            const content = document.getElementById('quickViewContent');
+            selectedQuickViewSize = 'Medium';
+
+            content.innerHTML = `
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                    <img src="${product.image}" class="w-full aspect-[3/4] object-cover rounded-xl sm:rounded-2xl border border-brand-gold/30">
+                    <div class="flex flex-col justify-between">
+                        <div>
+                            <span class="text-[9px] sm:text-[10px] bg-brand-charcoal text-brand-gold border border-brand-gold/30 px-2.5 py-0.5 sm:py-1 rounded-full uppercase tracking-wider font-bold">
+                                ${product.category}
+                            </span>
+                            <h3 class="font-serif font-bold text-xl sm:text-2xl text-brand-ivory mt-2 mb-1">${product.name}</h3>
+                            <p class="text-xs text-brand-taupe mb-3">${product.fabric || 'Stitched Pret'}</p>
+                            
+                            <div class="flex items-baseline gap-2 mb-4">
+                                <span class="font-serif font-bold text-xl sm:text-2xl gold-gradient-text">${STORE_CONFIG.currencySymbol}${Number(product.price).toLocaleString()}</span>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <label class="text-xs font-bold text-brand-ivory uppercase">Select Stitched Size:</label>
+                                    <button onclick="openSizeGuideModal()" class="text-[11px] text-brand-gold hover:underline">Size Guide</button>
+                                </div>
+                                <div class="flex gap-2">
+                                    ${['S', 'M', 'L', 'XL'].map(sz => `
+                                        <button onclick="selectedQuickViewSize='${sz}'" class="w-9 h-9 sm:w-10 sm:h-10 border border-brand-gold/30 rounded-xl font-bold text-xs hover:border-brand-gold hover:bg-brand-gold hover:text-brand-charcoal transition-all active:scale-95">
+                                            ${sz}
+                                        </button>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-brand-beige leading-relaxed mb-4">${product.description || 'Pure handcrafted Pakistani designer ensemble.'}</p>
+                        </div>
+
+                        <button onclick="addToCart('${product.id}', selectedQuickViewSize); closeQuickViewModal();" class="w-full py-3 sm:py-3.5 bg-brand-gold text-brand-charcoal font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg hover:bg-brand-cream transition-all active:scale-95">
+                            Add To Shopping Bag
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('quickViewModal').classList.remove('hidden');
+        }
+
+        function closeQuickViewModal() {
+            document.getElementById('quickViewModal').classList.add('hidden');
+        }
+
+        function openSizeGuideModal() {
+            document.getElementById('sizeGuideModal').classList.remove('hidden');
+        }
+
+        function closeSizeGuideModal() {
+            document.getElementById('sizeGuideModal').classList.add('hidden');
+        }
+
+        function showToast(msg, type = "info") {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = `px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-2xl transition-all duration-300 border ${
+                type === 'success' ? 'bg-emerald-950 border-emerald-500' : 'bg-brand-darkbrown border-brand-gold'
+            }`;
+            toast.innerText = msg;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
