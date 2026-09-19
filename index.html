@@ -185,20 +185,17 @@
 
                 liveSuits.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
-                if (liveSuits.length > 0) {
-                    window.productsList = liveSuits;
-                } else {
-                    window.productsList = DEFAULT_FALLBACK_PRODUCTS;
-                }
+                window.productsList = liveSuits;
+                localStorage.setItem('ayesha_suits', JSON.stringify(liveSuits));
 
                 if (typeof window.renderProducts === 'function') window.renderProducts();
                 if (typeof window.renderAdminProductsList === 'function') window.renderAdminProductsList();
             }, (error) => {
-                console.warn("Firestore sync offline or pending rules, using local catalog fallback:", error);
-                if ((!window.productsList || window.productsList.length === 0)) {
-                    window.productsList = DEFAULT_FALLBACK_PRODUCTS;
-                    if (typeof window.renderProducts === 'function') window.renderProducts();
-                }
+                console.warn("Firestore sync offline, using local catalog:", error);
+                const saved = localStorage.getItem('ayesha_suits');
+                window.productsList = saved ? JSON.parse(saved) : [];
+                if (typeof window.renderProducts === 'function') window.renderProducts();
+                if (typeof window.renderAdminProductsList === 'function') window.renderAdminProductsList();
             });
         }
 
@@ -206,12 +203,24 @@
             if (!auth.currentUser) await authenticateUser();
             const suitDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'suits', suitData.id);
             await setDoc(suitDocRef, suitData, { merge: true });
+            
+            // Local sync backup
+            let current = window.productsList || [];
+            const idx = current.findIndex(p => p.id === suitData.id);
+            if (idx > -1) current[idx] = suitData;
+            else current.unshift(suitData);
+            window.productsList = current;
+            localStorage.setItem('ayesha_suits', JSON.stringify(current));
         };
 
         window.deleteSuitFromCloud = async function(suitId) {
             if (!auth.currentUser) await authenticateUser();
             const suitDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'suits', suitId);
             await deleteDoc(suitDocRef);
+
+            // Local sync update
+            window.productsList = (window.productsList || []).filter(p => p.id !== suitId);
+            localStorage.setItem('ayesha_suits', JSON.stringify(window.productsList));
         };
     </script>
 </head>
@@ -229,55 +238,10 @@
 
         const ADMIN_SECRET_PIN = "7860";
 
-        // Premium fallback collection so boutique site always looks gorgeous on cold load
-        const DEFAULT_FALLBACK_PRODUCTS = [
-            {
-                id: "SUIT_DEMO_01",
-                name: "Zardosi Velvet Royal Maroon 3-Piece Formal",
-                price: 14500,
-                comparePrice: 18500,
-                category: "velvet",
-                fabric: "Micro Velvet Shirt with Jamawar Trouser & Organza Embroidered Dupatta",
-                description: "Deep maroon heavy zardosi hand-embroidered neckline, daman embellishments with intricate tilla work. Paired with pure embroidered dupattas for grand wedding formals.",
-                image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80",
-                createdAt: Date.now() - 100000
-            },
-            {
-                id: "SUIT_DEMO_02",
-                name: "Gul-e-Rana Embroidered Lawn Luxury 3PC",
-                price: 8900,
-                comparePrice: 11000,
-                category: "lawn",
-                fabric: "Premium Digital Lawn Shirt, Lawn Trouser & Silk Dupatta",
-                description: "Soft breathable summer lawn embroidered with delicate floral chikankari and heavy laser-cut daman border. Includes custom digital printed silk dupatta.",
-                image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80",
-                createdAt: Date.now() - 200000
-            },
-            {
-                id: "SUIT_DEMO_03",
-                name: "Noor-e-Chiffon Emerald Green Fancy Formal",
-                price: 12800,
-                comparePrice: 15500,
-                category: "fancy-suits",
-                fabric: "Pure Chiffon Embroidered Long Kurta with Raw Silk Pants",
-                description: "Emerald green embellished chiffon ensemble with pearl, sequin, and gota detailing. Perfect for Barat, Walima, and festive evening occasions.",
-                image: "https://images.unsplash.com/photo-1563178406-4cdc2923acbc?auto=format&fit=crop&w=800&q=80",
-                createdAt: Date.now() - 300000
-            },
-            {
-                id: "SUIT_DEMO_04",
-                name: "Shahkar Black Organza Handcrafted Pret",
-                price: 10500,
-                comparePrice: 13000,
-                category: "two-piece",
-                fabric: "Organza Shirt with Cotton Silk Slip & Cigarette Pants",
-                description: "Midnight black organza jacket shirt lined with soft silk, featuring silver threadwork and mirror accents along sleeves.",
-                image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80",
-                createdAt: Date.now() - 400000
-            }
-        ];
+        // Default suits removed completely - store starts clean for owner control
+        const DEFAULT_FALLBACK_PRODUCTS = [];
 
-        window.productsList = [...DEFAULT_FALLBACK_PRODUCTS];
+        window.productsList = [];
         let shoppingCart = [];
         let wishlist = [];
         let activeCategoryFilter = 'all';
@@ -576,9 +540,12 @@
                         <i class="fa-solid fa-shield-halved"></i> Owner Administration Access
                     </span>
                     <h2 class="font-serif text-2xl sm:text-3xl font-bold text-brand-ivory mt-1">Boutique Suit Catalog Control</h2>
-                    <p class="text-xs text-brand-taupe">Upload new suits, modify pricing/descriptions, or delete items in real-time across all client devices.</p>
+                    <p class="text-xs text-brand-taupe">Unlimited suits posting: Upload new suits, edit, or delete items instantly across all client devices.</p>
                 </div>
                 <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <button onclick="clearAllCatalogData()" class="px-3.5 py-2.5 bg-red-950/60 text-rose-300 border border-red-800/60 hover:bg-red-900 rounded-xl text-xs font-bold uppercase tracking-wider transition-all" title="Wipe all uploaded suits">
+                        <i class="fa-solid fa-trash-can mr-1"></i> Clear All Suits
+                    </button>
                     <button onclick="switchView('shop')" class="flex-1 sm:flex-none px-4 py-2.5 border border-brand-gold/40 text-brand-gold hover:bg-brand-gold hover:text-brand-obsidian rounded-xl text-xs font-bold uppercase tracking-wider transition-all text-center">
                         <i class="fa-solid fa-store mr-1"></i> View Live Storefront
                     </button>
@@ -1410,166 +1377,35 @@
                 try { wishlist = JSON.parse(savedWishlist); } catch(e) { wishlist = []; }
             }
 
+            const savedSuits = localStorage.getItem('ayesha_suits');
+            if (savedSuits) {
+                try { window.productsList = JSON.parse(savedSuits); } catch(e) { window.productsList = []; }
+            }
+
             updateWishlistBadge();
             renderCart();
         }
 
+        async function clearAllCatalogData() {
+            if (confirm("Kya aap waqai tamaam suits delete karna chahte hain? Sab suits catalog se saaf ho jayenge.")) {
+                try {
+                    const suitsToDelete = [...(window.productsList || [])];
+                    for (const s of suitsToDelete) {
+                        if (typeof window.deleteSuitFromCloud === 'function') {
+                            await window.deleteSuitFromCloud(s.id);
+                        }
+                    }
+                    window.productsList = [];
+                    localStorage.removeItem('ayesha_suits');
+                    renderProducts();
+                    renderAdminProductsList();
+                    showToast("Tamaam suits delete ho chuke hain!", "info");
+                } catch (err) {
+                    console.error("Clear catalog error:", err);
+                    showToast("Failed to clear catalog", "error");
+                }
+            }
+        }
+
         function renderCart() {
-            const badge = document.getElementById('cartBadge');
-            const container = document.getElementById('cartItemsContainer');
-            const subtotalElem = document.getElementById('cartSubtotal');
-
-            const totalCount = shoppingCart.reduce((sum, item) => sum + item.qty, 0);
-            if (badge) badge.innerText = totalCount;
-
-            if (!container) return;
-
-            if (shoppingCart.length === 0) {
-                container.innerHTML = `<p class="text-xs text-brand-taupe text-center py-8">Your bag is currently empty.</p>`;
-                if (subtotalElem) subtotalElem.innerText = `${STORE_CONFIG.currencySymbol}0`;
-                return;
-            }
-
-            let total = 0;
-            container.innerHTML = shoppingCart.map((item, idx) => {
-                total += item.price * item.qty;
-                return `
-                    <div class="flex items-center gap-3 p-3 bg-brand-obsidian border border-brand-gold/20 rounded-xl">
-                        <img src="${item.image}" class="w-12 h-14 object-cover rounded-lg border border-brand-gold/30 shrink-0">
-                        <div class="flex-1 min-w-0">
-                            <h5 class="text-xs font-bold text-brand-ivory truncate">${item.name}</h5>
-                            <p class="text-[10px] text-brand-taupe">Size: ${item.size} | Qty: ${item.qty}</p>
-                            <p class="text-xs font-bold text-brand-gold font-serif">${STORE_CONFIG.currencySymbol}${Number(item.price * item.qty).toLocaleString()}</p>
-                        </div>
-                        <button onclick="removeFromCart(${idx})" class="text-rose-400 p-1 text-xs shrink-0"><i class="fa-solid fa-xmark"></i></button>
-                    </div>
-                `;
-            }).join('');
-
-            if (subtotalElem) subtotalElem.innerText = `${STORE_CONFIG.currencySymbol}${Number(total).toLocaleString()}`;
-        }
-
-        function removeFromCart(index) {
-            shoppingCart.splice(index, 1);
-            updateCart();
-        }
-
-        function toggleCartDrawer() {
-            document.getElementById('cartDrawer').classList.toggle('hidden');
-        }
-
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenuModal').classList.toggle('hidden');
-        }
-
-        function checkoutToWhatsApp() {
-            if (shoppingCart.length === 0) {
-                showToast("Your bag is empty!", "error");
-                return;
-            }
-
-            let message = `*NEW BOUTIQUE ORDER - ${STORE_CONFIG.name}*\n\n`;
-            let total = 0;
-
-            shoppingCart.forEach((item, i) => {
-                const itemTotal = item.price * item.qty;
-                total += itemTotal;
-                message += `${i + 1}. *${item.name}*\n   Size: ${item.size}\n   Qty: ${item.qty}\n   Amount: PKR ${itemTotal.toLocaleString()}\n\n`;
-            });
-
-            message += `*Total Order Amount:* PKR ${total.toLocaleString()}\n`;
-            message += `*Delivery Location:* Pakistan\n\nAssalam o Alaikum! Please send payment & delivery details. Thank you!`;
-
-            window.open(`https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
-        }
-
-        function openQuickView(suitId) {
-            const product = (window.productsList || []).find(p => p.id === suitId);
-            if (!product) return;
-
-            const content = document.getElementById('quickViewContent');
-            selectedQuickViewSize = 'Medium';
-
-            content.innerHTML = `
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <img src="${product.image}" class="w-full aspect-[3/4] object-cover rounded-2xl border border-brand-gold/30">
-                    <div class="flex flex-col justify-between">
-                        <div>
-                            <span class="text-[10px] bg-brand-obsidian text-brand-gold border border-brand-gold/30 px-3 py-1 rounded-full uppercase tracking-wider font-bold">
-                                ${(product.category || 'Suit').replace('-', ' ')}
-                            </span>
-                            <h3 class="font-serif font-bold text-xl sm:text-2xl text-brand-ivory mt-3 mb-1">${product.name}</h3>
-                            <p class="text-xs text-brand-taupe mb-3">${product.fabric || 'Designer Fabric Ensemble'}</p>
-                            
-                            <div class="flex items-baseline gap-2 mb-4">
-                                <span class="font-serif font-bold text-2xl gold-gradient-text">${STORE_CONFIG.currencySymbol}${Number(product.price).toLocaleString()}</span>
-                            </div>
-
-                            <div class="mb-4">
-                                <div class="flex items-center justify-between mb-2">
-                                    <label class="text-xs font-bold text-brand-ivory uppercase">Select Stitched Size:</label>
-                                    <button onclick="openSizeGuideModal()" class="text-[11px] text-brand-gold hover:underline">Size Chart</button>
-                                </div>
-                                <div class="flex gap-2">
-                                    ${['S', 'M', 'L', 'XL'].map(sz => `
-                                        <button onclick="selectedQuickViewSize='${sz}'; updateSizeButtons(this);" class="size-btn w-10 h-10 border border-brand-gold/30 rounded-xl font-bold text-xs hover:border-brand-gold hover:bg-brand-gold hover:text-brand-obsidian transition-all ${sz === 'M' ? 'bg-brand-gold text-brand-obsidian' : ''}">
-                                            ${sz}
-                                        </button>
-                                    `).join('')}
-                                </div>
-                            </div>
-
-                            <p class="text-xs text-brand-champagne leading-relaxed mb-4">${product.description || 'Authentic handcrafted designer ensemble.'}</p>
-                        </div>
-
-                        <div class="space-y-2">
-                            <button onclick="buyNowDirectWhatsApp('${product.id}', selectedQuickViewSize)" class="w-full py-3 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 active:scale-95">
-                                <i class="fa-brands fa-whatsapp text-base"></i> Direct Order On WhatsApp
-                            </button>
-                            <button onclick="addToCart('${product.id}', selectedQuickViewSize); closeQuickViewModal();" class="w-full py-3 bg-brand-gold/20 border border-brand-gold/50 text-brand-gold hover:bg-brand-gold hover:text-brand-obsidian font-bold text-xs uppercase tracking-wider rounded-xl transition-all active:scale-95">
-                                Add To Shopping Bag
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('quickViewModal').classList.remove('hidden');
-        }
-
-        function updateSizeButtons(btnElem) {
-            document.querySelectorAll('.size-btn').forEach(b => b.className = "size-btn w-10 h-10 border border-brand-gold/30 rounded-xl font-bold text-xs hover:border-brand-gold hover:bg-brand-gold hover:text-brand-obsidian transition-all");
-            btnElem.className = "size-btn w-10 h-10 border border-brand-gold/30 rounded-xl font-bold text-xs bg-brand-gold text-brand-obsidian transition-all";
-        }
-
-        function closeQuickViewModal() {
-            document.getElementById('quickViewModal').classList.add('hidden');
-        }
-
-        function openSizeGuideModal() {
-            document.getElementById('sizeGuideModal').classList.remove('hidden');
-        }
-
-        function closeSizeGuideModal() {
-            document.getElementById('sizeGuideModal').classList.add('hidden');
-        }
-
-        function showToast(msg, type = "info") {
-            const container = document.getElementById('toastContainer');
-            if (!container) return;
-
-            const toast = document.createElement('div');
-            toast.className = `px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white shadow-2xl transition-all duration-300 border ${
-                type === 'success' ? 'bg-emerald-950 border-emerald-500' : 'bg-brand-darkwood border-brand-gold'
-            }`;
-            toast.innerText = msg;
-            container.appendChild(toast);
-
-            setTimeout(() => {
-                toast.classList.add('opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-    </script>
-</body>
-</html>
+<!-- ... existing code -->
