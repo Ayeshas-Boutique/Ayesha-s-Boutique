@@ -238,9 +238,6 @@
 
         const ADMIN_SECRET_PIN = "7860";
 
-        // Default suits removed completely - store starts clean for owner control
-        const DEFAULT_FALLBACK_PRODUCTS = [];
-
         window.productsList = [];
         let shoppingCart = [];
         let wishlist = [];
@@ -311,6 +308,7 @@
         </div>
     </header>
 
+    <!-- Mobile Drawer Menu -->
     <div id="mobileMenuModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden transition-opacity">
         <div class="bg-brand-obsidian w-4/5 max-w-xs h-full p-5 sm:p-6 flex flex-col justify-between border-r border-brand-gold/20 shadow-2xl safe-pb">
             <div>
@@ -324,7 +322,7 @@
                     </button>
                 </div>
                 <div class="flex flex-col space-y-4 pt-6 text-xs font-bold uppercase tracking-widest">
-                    <button onclick="switchView('shop'); toggleMobileMenu();" class="text-left py-2.5 border-b border-brand-gold/10 hover:text-brand-gold flex items-center justify-between">
+                    <button onclick="switchView('shop'); toggleMobileMenu();" class="text-left py-2.5 border-b border-brand-gold/10 text-brand-gold hover:text-brand-gold flex items-center justify-between">
                         <span>Shop Collection</span>
                         <i class="fa-solid fa-chevron-right text-[10px] text-brand-gold"></i>
                     </button>
@@ -440,6 +438,7 @@
                 </div>
             </div>
 
+            <!-- Customer Reviews Section -->
             <section id="reviewsSection" class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-12 sm:py-16 border-t border-brand-gold/20">
                 <div class="text-center max-w-2xl mx-auto mb-10">
                     <span class="text-brand-gold text-xs font-bold uppercase tracking-widest bg-brand-gold/10 px-3.5 py-1 rounded-full border border-brand-gold/30 inline-block mb-3">
@@ -532,7 +531,6 @@
             </section>
         </section>
 
-
         <section id="adminView" class="hidden max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-brand-gold/20 mb-8">
                 <div>
@@ -566,17 +564,17 @@
                             </div>
                             <div>
                                 <h3 id="formTitle" class="font-serif font-bold text-xl text-brand-ivory">Post New Designer Suit</h3>
-                                <p class="text-xs text-brand-taupe">Upload photo from Mobile Camera / Gallery or PC.</p>
+                                <p class="text-xs text-brand-taupe">Upload photo from Mobile Camera / Gallery or paste URL.</p>
                             </div>
                         </div>
-                        <button id="cancelEditBtn" onclick="resetAdminForm()" class="hidden text-xs text-rose-300 border border-rose-800/60 px-3 py-1.5 rounded-lg hover:bg-rose-950">
+                        <button id="cancelEditBtn" type="button" onclick="resetAdminForm()" class="hidden text-xs text-rose-300 border border-rose-800/60 px-3 py-1.5 rounded-lg hover:bg-rose-950">
                             Cancel Edit
                         </button>
                     </div>
 
                     <form onsubmit="handlePostSuitSubmit(event)" class="space-y-5">
                         
-                        <!-- File Dropzone -->
+                        <!-- File Dropzone or Image URL Input -->
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-brand-champagne mb-2">
                                 1. Suit Photo Upload *
@@ -590,6 +588,12 @@
                                 </div>
                                 <p class="text-xs sm:text-sm font-bold text-brand-ivory mb-1">Click to Pick Image or Capture Mobile Camera</p>
                                 <p class="text-[10px] sm:text-xs text-brand-taupe">High resolution photos are automatically optimized and compressed.</p>
+                            </div>
+
+                            <!-- Optional Image URL Fallback -->
+                            <div class="mt-2.5 flex items-center gap-2">
+                                <span class="text-[10px] text-brand-taupe font-bold uppercase shrink-0">OR Paste Image URL:</span>
+                                <input type="text" id="postImageUrlFallback" onchange="handleImageUrlFallback(event)" placeholder="https://example.com/suit-photo.jpg" class="w-full px-3 py-2 bg-brand-obsidian border border-brand-gold/20 rounded-xl text-xs text-brand-ivory focus:outline-none focus:border-brand-gold">
                             </div>
 
                             <!-- Preview Container -->
@@ -677,6 +681,7 @@
         </section>
     </main>
 
+    <!-- FOOTER -->
     <footer class="bg-brand-darkwood border-t border-brand-gold/20 pt-12 pb-8 text-brand-taupe text-xs">
         <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-brand-gold/10">
             <div>
@@ -716,8 +721,6 @@
         </div>
     </footer>
 
-
-    <!-- MODALS & DRAWERS -->
 
 
     <!-- Size Guide Modal -->
@@ -846,6 +849,11 @@
             renderAdminProductsList();
             setupDropzone();
         };
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenuModal');
+            if (mobileMenu) mobileMenu.classList.toggle('hidden');
+        }
 
         function handleAdminNavClick() {
             if (isAdminAuthenticated) {
@@ -1052,7 +1060,7 @@
         }
 
         // Image compression algorithm for high resolution photos
-        function compressImage(file, maxWidth = 900, maxHeight = 1200, quality = 0.75) {
+        function compressImage(file, maxWidth = 800, maxHeight = 1000, quality = 0.7) {
             return new Promise((resolve) => {
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -1110,6 +1118,17 @@
             if (files && files.length > 0) await processUploadedFile(files[0]);
         }
 
+        function handleImageUrlFallback(e) {
+            const url = e.target.value.trim();
+            if (url) {
+                currentUploadedImageBase64 = url;
+                document.getElementById('imagePreviewElement').src = url;
+                document.getElementById('imageFileName').innerText = "URL Attached";
+                document.getElementById('imagePreviewContainer').classList.remove('hidden');
+                document.getElementById('imageUploadDropzone').classList.add('hidden');
+            }
+        }
+
         async function processUploadedFile(file) {
             if (!file.type.match('image.*')) {
                 showToast("Please upload an image file (JPG, PNG, WEBP)", "error");
@@ -1129,6 +1148,7 @@
             currentUploadedImageBase64 = null;
             document.getElementById('imagePreviewElement').src = '';
             document.getElementById('suitImageFileInput').value = '';
+            document.getElementById('postImageUrlFallback').value = '';
             document.getElementById('imagePreviewContainer').classList.add('hidden');
             document.getElementById('imageUploadDropzone').classList.remove('hidden');
         }
@@ -1162,7 +1182,7 @@
                 fabric,
                 description,
                 image: currentUploadedImageBase64,
-                createdAt: editingSuitId ? (window.productsList.find(p => p.id === editingSuitId)?.createdAt || Date.now()) : Date.now()
+                createdAt: editingSuitId ? ((window.productsList.find(p => p.id === editingSuitId) || {}).createdAt || Date.now()) : Date.now()
             };
 
             try {
@@ -1172,9 +1192,11 @@
                     const idx = window.productsList.findIndex(p => p.id === suitId);
                     if (idx > -1) window.productsList[idx] = suitObj;
                     else window.productsList.unshift(suitObj);
-                    renderProducts();
-                    renderAdminProductsList();
                 }
+
+                renderProducts();
+                renderAdminProductsList();
+
                 showToast(editingSuitId ? "Suit Details Updated!" : "Suit Published Live!", "success");
                 resetAdminForm();
                 switchView('shop');
@@ -1237,7 +1259,7 @@
 
             container.innerHTML = currentSuits.map(p => `
                 <div class="p-3 bg-brand-obsidian/80 border border-brand-gold/20 rounded-xl flex items-center justify-between gap-3">
-                    <img src="${p.image}" class="w-12 h-14 object-cover rounded-lg border border-brand-gold/30 shrink-0">
+                    <img src="${p.image}" class="w-12 h-14 object-cover rounded-lg border border-brand-gold/30 shrink-0" onerror="this.src='https://placehold.co/100x120/141312/C5A059?text=Suit'">
                     <div class="flex-1 min-w-0">
                         <h5 class="text-xs font-bold text-brand-ivory truncate">${p.name}</h5>
                         <p class="text-[11px] text-brand-gold font-serif font-bold">${STORE_CONFIG.currencySymbol}${Number(p.price).toLocaleString()}</p>
@@ -1261,9 +1283,9 @@
                         await window.deleteSuitFromCloud(suitId);
                     } else {
                         window.productsList = window.productsList.filter(p => p.id !== suitId);
-                        renderProducts();
-                        renderAdminProductsList();
                     }
+                    renderProducts();
+                    renderAdminProductsList();
                     showToast("Suit deleted live!", "info");
                 } catch (err) {
                     console.error("Delete error:", err);
@@ -1326,7 +1348,7 @@
 
             container.innerHTML = wishlist.map(item => `
                 <div class="flex items-center gap-3 p-3 bg-brand-obsidian border border-brand-gold/20 rounded-xl">
-                    <img src="${item.image}" class="w-12 h-14 object-cover rounded-lg border border-brand-gold/30 shrink-0">
+                    <img src="${item.image}" class="w-12 h-14 object-cover rounded-lg border border-brand-gold/30 shrink-0" onerror="this.src='https://placehold.co/100x120/141312/C5A059?text=Suit'">
                     <div class="flex-1 min-w-0">
                         <h5 class="text-xs font-bold text-brand-ivory truncate">${item.name}</h5>
                         <p class="text-xs font-bold text-brand-gold font-serif">${STORE_CONFIG.currencySymbol}${Number(item.price).toLocaleString()}</p>
@@ -1407,5 +1429,199 @@
             }
         }
 
+        function toggleCartDrawer() {
+            renderCart();
+            document.getElementById('cartDrawer').classList.toggle('hidden');
+        }
+
+        function changeCartQty(suitId, size, delta) {
+            const idx = shoppingCart.findIndex(item => item.id === suitId && item.size === size);
+            if (idx > -1) {
+                shoppingCart[idx].qty += delta;
+                if (shoppingCart[idx].qty <= 0) {
+                    shoppingCart.splice(idx, 1);
+                }
+                updateCart();
+            }
+        }
+
         function renderCart() {
-<!-- ... existing code -->
+            const container = document.getElementById('cartItemsContainer');
+            const badge = document.getElementById('cartBadge');
+            const subtotalElem = document.getElementById('cartSubtotal');
+
+            if (!container) return;
+
+            const totalItemsCount = shoppingCart.reduce((acc, curr) => acc + curr.qty, 0);
+            if (badge) badge.innerText = totalItemsCount;
+
+            const subtotal = shoppingCart.reduce((acc, curr) => acc + (curr.price * curr.qty), 0);
+            if (subtotalElem) subtotalElem.innerText = `${STORE_CONFIG.currencySymbol}${subtotal.toLocaleString()}`;
+
+            if (shoppingCart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <i class="fa-solid fa-bag-shopping text-3xl text-brand-taupe/40 mb-3 block"></i>
+                        <p class="text-xs text-brand-taupe">Your shopping bag is currently empty.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = shoppingCart.map(item => `
+                <div class="p-3 bg-brand-darkwood/60 border border-brand-gold/20 rounded-xl flex items-center justify-between gap-3">
+                    <img src="${item.image}" class="w-12 h-14 object-cover rounded-lg border border-brand-gold/30 shrink-0" onerror="this.src='https://placehold.co/100x120/141312/C5A059?text=Suit'">
+                    <div class="flex-1 min-w-0">
+                        <h5 class="text-xs font-bold text-brand-ivory truncate">${item.name}</h5>
+                        <p class="text-[10px] text-brand-taupe">Size: <span class="text-brand-gold font-bold">${item.size}</span></p>
+                        <p class="text-xs font-bold text-brand-gold font-serif mt-0.5">${STORE_CONFIG.currencySymbol}${(item.price * item.qty).toLocaleString()}</p>
+                    </div>
+                    <div class="flex items-center gap-2 bg-brand-obsidian border border-brand-gold/30 rounded-lg px-2 py-1 shrink-0">
+                        <button onclick="changeCartQty('${item.id}', '${item.size}', -1)" class="text-brand-gold hover:text-white px-1 text-xs font-bold">-</button>
+                        <span class="text-xs font-bold text-brand-ivory">${item.qty}</span>
+                        <button onclick="changeCartQty('${item.id}', '${item.size}', 1)" class="text-brand-gold hover:text-white px-1 text-xs font-bold">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function checkoutToWhatsApp() {
+            if (shoppingCart.length === 0) {
+                showToast("Your shopping bag is empty!", "error");
+                return;
+            }
+
+            let msg = `*NEW BOUTIQUE ORDER - ${STORE_CONFIG.name}*\n\n`;
+            let total = 0;
+
+            shoppingCart.forEach((item, i) => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+                msg += `*${i + 1}. ${item.name}*\n`;
+                msg += `   • Size: ${item.size}\n`;
+                msg += `   • Quantity: ${item.qty}\n`;
+                msg += `   • Price: ${STORE_CONFIG.currencySymbol}${itemTotal.toLocaleString()}\n\n`;
+            });
+
+            msg += `*Total Amount:* ${STORE_CONFIG.currencySymbol}${total.toLocaleString()}\n`;
+            msg += `\nAssalam o Alaikum! Please confirm my order details and share delivery address request. Thank you!`;
+
+            window.open(`https://wa.me/${STORE_CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function openQuickView(suitId) {
+            const product = (window.productsList || []).find(p => p.id === suitId);
+            if (!product) return;
+
+            selectedQuickViewSize = 'Medium';
+            const modal = document.getElementById('quickViewModal');
+            const content = document.getElementById('quickViewContent');
+
+            content.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="relative rounded-2xl overflow-hidden aspect-[3/4] bg-brand-obsidian border border-brand-gold/30">
+                        <img src="${product.image}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x800/141312/C5A059?text=Suit+Photo'">
+                    </div>
+                    <div class="flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block px-3 py-1 bg-brand-gold/10 border border-brand-gold/40 text-brand-gold text-[10px] font-bold rounded-full uppercase tracking-wider mb-2">
+                                ${(product.category || 'Suit').replace('-', ' ')}
+                            </span>
+                            <h3 class="font-serif font-bold text-xl sm:text-2xl text-brand-ivory mb-2">${product.name}</h3>
+                            <p class="text-xs text-brand-taupe mb-4">${product.fabric || 'Designer Fabric'}</p>
+                            
+                            <div class="flex items-baseline gap-3 mb-4">
+                                <span class="font-serif font-bold text-2xl gold-gradient-text">${STORE_CONFIG.currencySymbol}${Number(product.price).toLocaleString()}</span>
+                                ${product.comparePrice ? `<span class="text-sm text-brand-taupe line-through">${STORE_CONFIG.currencySymbol}${Number(product.comparePrice).toLocaleString()}</span>` : ''}
+                            </div>
+
+                            <p class="text-xs text-brand-champagne/90 leading-relaxed mb-5">${product.description || 'Exquisite Pakistani designer suit stitched to perfection with handcrafted detailing and original fine fabric.'}</p>
+
+                            <div class="mb-5">
+                                <div class="flex items-center justify-between mb-2">
+                                    <label class="text-xs font-bold uppercase tracking-wider text-brand-champagne">Select Size:</label>
+                                    <button onclick="openSizeGuideModal()" class="text-[11px] text-brand-gold hover:underline">
+                                        <i class="fa-solid fa-ruler-horizontal mr-1"></i> Size Chart
+                                    </button>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    ${['Small', 'Medium', 'Large', 'X-Large'].map(sz => `
+                                        <button onclick="selectQuickViewSize('${sz}')" id="btnSize_${sz}" class="py-2 rounded-xl text-xs font-bold border transition-all ${sz === 'Medium' ? 'bg-brand-gold text-brand-obsidian border-brand-gold' : 'bg-brand-obsidian text-brand-ivory border-brand-gold/30 hover:border-brand-gold'}">
+                                            ${sz}
+                                        </button>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 pt-4 border-t border-brand-gold/20">
+                            <button onclick="buyNowDirectWhatsApp('${product.id}', selectedQuickViewSize)" class="w-full py-3.5 bg-emerald-700 hover:bg-emerald-600 text-white font-bold rounded-xl text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 active:scale-95 shadow-md">
+                                <i class="fa-brands fa-whatsapp text-base"></i> Buy Now On WhatsApp
+                            </button>
+                            <button onclick="addToCart('${product.id}', selectedQuickViewSize); closeQuickViewModal();" class="w-full py-3 bg-brand-gold/20 border border-brand-gold/50 text-brand-gold hover:bg-brand-gold hover:text-brand-obsidian font-bold rounded-xl text-xs uppercase tracking-wider transition-all active:scale-95">
+                                Add To Shopping Bag
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        function selectQuickViewSize(sz) {
+            selectedQuickViewSize = sz;
+            ['Small', 'Medium', 'Large', 'X-Large'].forEach(s => {
+                const btn = document.getElementById(`btnSize_${s}`);
+                if (btn) {
+                    if (s === sz) {
+                        btn.className = "py-2 rounded-xl text-xs font-bold border transition-all bg-brand-gold text-brand-obsidian border-brand-gold";
+                    } else {
+                        btn.className = "py-2 rounded-xl text-xs font-bold border transition-all bg-brand-obsidian text-brand-ivory border-brand-gold/30 hover:border-brand-gold";
+                    }
+                }
+            });
+        }
+
+        function closeQuickViewModal() {
+            document.getElementById('quickViewModal').classList.add('hidden');
+        }
+
+        function openSizeGuideModal() {
+            document.getElementById('sizeGuideModal').classList.remove('hidden');
+        }
+
+        function closeSizeGuideModal() {
+            document.getElementById('sizeGuideModal').classList.add('hidden');
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            
+            let bg = 'bg-brand-darkwood border-brand-gold/40 text-brand-ivory';
+            let icon = 'fa-circle-info text-brand-gold';
+
+            if (type === 'success') {
+                bg = 'bg-emerald-950/95 border-emerald-500/50 text-emerald-100';
+                icon = 'fa-circle-check text-emerald-400';
+            } else if (type === 'error') {
+                bg = 'bg-rose-950/95 border-rose-500/50 text-rose-100';
+                icon = 'fa-circle-xmark text-rose-400';
+            }
+
+            toast.className = `p-3.5 rounded-2xl border ${bg} shadow-2xl flex items-center gap-3 text-xs font-bold pointer-events-auto backdrop-blur-md transform translate-y-2 transition-all duration-300`;
+            toast.innerHTML = `<i class="fa-solid ${icon} text-base shrink-0"></i> <span>${message}</span>`;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
